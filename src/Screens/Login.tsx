@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AuthLayout from "../Components/Auth/AuthLayout";
-import Button from "../Components/Auth/Button";
+import SubmitButton from "../Components/Auth/SubmitButton";
 import { BaseBox } from "../Components/shared";
 import routes from "../routes";
 
@@ -90,7 +90,7 @@ const Login = () => {
         <Form>
           <Input type="text" placeholder="Username" />
           <Input type="password" placeholder="Password" />
-          <Button type="submit" value="Log in" />
+          <SubmitButton type="submit" value="Log in" />
         </Form>
         <Separator>
           <div></div>
