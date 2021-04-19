@@ -11,6 +11,7 @@ const Button = styled.input`
   width: 100%;
   opacity: ${(props) => (props.disabled ? 0.3 : 1)};
   border-radius: 2px;
+  transition: 0.8s ease-in-out;
 `;
 
 export default Button;
