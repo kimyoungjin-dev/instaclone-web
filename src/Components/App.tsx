@@ -5,11 +5,7 @@ import AppRouter from "./AppRouter";
 import { ThemeProvider } from "styled-components";
 import { dark, GlobalStyles, light } from "../styles";
 
-interface IState {
-  isLoggedIn?: boolean;
-}
-
-const App: React.FC<IState> = () => {
+const App = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const darkMode = useReactiveVar(darkModeVar);
 
