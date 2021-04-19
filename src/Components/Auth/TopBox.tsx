@@ -22,7 +22,7 @@ const Container = styled(BaseBox)`
   }
 `;
 
-const FormBox: React.FC<IProps> = ({ children }) => {
+const TopBox: React.FC<IProps> = ({ children }) => {
   return <Container>{children}</Container>;
 };
-export default FormBox;
+export default TopBox;
