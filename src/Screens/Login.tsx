@@ -1,7 +1,4 @@
-import {
-  faFacebookSquare,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import AuthLayout from "../Components/Auth/AuthLayout";
@@ -11,6 +8,7 @@ import Input from "../Components/Auth/Input";
 import Separator from "../Components/Auth/Separator";
 import SubmitButton from "../Components/Auth/SubmitButton";
 import routes from "../routes";
+import PageTitle from "../Components/PageTitle";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -23,6 +21,7 @@ const FacebookLogin = styled.div`
 const Login = () => {
   return (
     <AuthLayout>
+      <PageTitle title="Login" />
       <TopBox>
         <form>
           <Input type="text" placeholder="UserName" />
