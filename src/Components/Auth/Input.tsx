@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-interface IProps {
-  type: string;
-  placeholder: string;
-}
-const SInput = styled.input`
+const Input = styled.input`
   width: 100%;
   border-radius: 3px;
   padding: 7px;
@@ -17,9 +13,5 @@ const SInput = styled.input`
     font-size: 12px;
   }
 `;
-
-const Input: React.FC<IProps> = (props) => {
-  return <SInput {...props} />;
-};
 
 export default Input;
