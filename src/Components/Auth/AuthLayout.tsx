@@ -17,12 +17,10 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const AuthLayout: React.FC<IProps> = ({ children }) => {
+export default function AuthLayout({ children }: IProps) {
   return (
     <Container>
       <Wrapper>{children}</Wrapper>
     </Container>
   );
-};
-
-export default AuthLayout;
+}

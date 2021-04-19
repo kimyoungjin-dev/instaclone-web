@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const SSeparator = styled.div`
@@ -20,7 +19,7 @@ const SSeparator = styled.div`
   }
 `;
 
-const Separator = () => {
+export default function Separator() {
   return (
     <SSeparator>
       <div></div>
@@ -28,6 +27,4 @@ const Separator = () => {
       <div></div>
     </SSeparator>
   );
-};
-
-export default Separator;
+}

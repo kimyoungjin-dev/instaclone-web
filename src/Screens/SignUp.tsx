@@ -20,7 +20,7 @@ const Subtitle = styled(SilverText)`
   font-size: 14px;
 `;
 
-const SignUp = () => {
+export default function SignUp() {
   return (
     <AuthLayout>
       <PageTitle title="Sign Up" />
@@ -41,5 +41,4 @@ const SignUp = () => {
       <BottomBox text="Have an account?" linkText="Login" link={routes.home} />
     </AuthLayout>
   );
-};
-export default SignUp;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BaseBox } from "../SharedStyles";
@@ -19,13 +18,11 @@ const SBottomBox = styled(BaseBox)`
   }
 `;
 
-const BottomBox: React.FC<IProps> = ({ text, link, linkText }) => {
+export default function BottomBox({ text, link, linkText }: IProps) {
   return (
     <SBottomBox>
       <span>{text}</span>
       <Link to={link}>{linkText}</Link>
     </SBottomBox>
   );
-};
-
-export default BottomBox;
+}
