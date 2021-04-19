@@ -24,9 +24,6 @@ const Login = () => {
   return (
     <AuthLayout>
       <TopBox>
-        <div>
-          <FontAwesomeIcon icon={faInstagram} size="3x" />
-        </div>
         <form>
           <Input type="text" placeholder="UserName" />
           <Input type="password" placeholder="Password" />

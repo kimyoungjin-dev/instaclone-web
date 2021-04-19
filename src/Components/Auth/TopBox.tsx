@@ -22,7 +22,17 @@ const Container = styled(BaseBox)`
   }
 `;
 
+const Text = styled.h1`
+  font-size: 45px;
+  font-family: "Caveat Brush", cursive;
+`;
+
 const TopBox: React.FC<IProps> = ({ children }) => {
-  return <Container>{children}</Container>;
+  return (
+    <Container>
+      <Text>Instagram</Text>
+      {children}
+    </Container>
+  );
 };
 export default TopBox;
