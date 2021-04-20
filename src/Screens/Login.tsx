@@ -1,16 +1,16 @@
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Container from "../Components/Auth/Container";
-import BottomBox from "../Components/Auth/BottomBox";
-import TopBox from "../Components/Auth/TopBox";
-import Input from "../Components/Auth/Input";
+import Container from "../Components/Auth/Box/Container";
+import BottomBox from "../Components/Auth/Box/BottomBox";
+import TopBox from "../Components/Auth/Box/TopBox";
+import Input from "../Components/Auth/Box/Input";
 import Separator from "../Components/Auth/Separator";
-import SubmitButton from "../Components/Auth/SubmitButton";
+import SubmitButton from "../Components/Auth/Box/SubmitButton";
 import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
-import Form from "../Components/Auth/Form";
+import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
 
 interface IForm {
