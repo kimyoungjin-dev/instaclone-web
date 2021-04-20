@@ -1,18 +1,19 @@
 import { createGlobalStyle, DefaultTheme } from "styled-components";
 import reset from "styled-reset";
 
-export const dark: DefaultTheme = {
-  bgColor: "black",
-  fontColor: "white",
-  accent: "#0095f6",
-  borderColor: "rgb(219,219,219)",
-};
+// export const dark: DefaultTheme = {
+//   bgColor: "black",
+//   fontColor: "white",
+//   accent: "#0095f6",
+//   borderColor: "rgb(219,219,219)",
+// };
 
 export const light: DefaultTheme = {
   bgColor: "white",
   fontColor: "black",
   accent: "#0095f6",
   borderColor: "rgb(219,219,219)",
+  silverColor: "silver",
 };
 
 export const GlobalStyles = createGlobalStyle`
