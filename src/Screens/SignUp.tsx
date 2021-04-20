@@ -1,35 +1,19 @@
-import Container from "../Components/Auth/Container";
-import BottomBox from "../Components/Auth/BottomBox";
-import TopBox from "../Components/Auth/TopBox";
-import Input from "../Components/Auth/Input";
-import SubmitButton from "../Components/Auth/SubmitButton";
+import {
+  AgreeText,
+  HeaderContainer,
+  Subtitle,
+} from "../Components/Auth/SignUp/SignUpStyles";
+import Container from "../Components/Auth/Box/Container";
+import BottomBox from "../Components/Auth/Box/BottomBox";
+import TopBox from "../Components/Auth/Box/TopBox";
+import Input from "../Components/Auth/Box/Input";
+import SubmitButton from "../Components/Auth/Box/SubmitButton";
 import routes from "../routes";
-import styled from "styled-components";
-import { SilverText } from "../Components/SharedStyles";
 import PageTitle from "../Components/PageTitle";
-import Form from "../Components/Auth/Form";
+import Form from "../Components/Auth/Box/Form";
 import Separator from "../Components/Auth/Separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const Subtitle = styled(SilverText)`
-  text-align: center;
-  font-size: 14px;
-`;
-
-const AgreeText = styled.span`
-  color: ${(props) => props.theme.silverColor};
-  font-size: 12px;
-  margin-top: 20px;
-  text-align: center;
-`;
 
 export default function SignUp() {
   return (
