@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BaseBox } from "../SharedStyles";
+import { BaseBox } from "../../SharedStyles";
 
 interface IProps {
   text: string;
