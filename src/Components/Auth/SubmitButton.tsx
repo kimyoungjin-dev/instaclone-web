@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.input`
+const Button = styled.button`
   border: none;
   margin-top: 12px;
   background-color: ${(props) => props.theme.accent};
@@ -12,6 +12,7 @@ const Button = styled.input`
   opacity: ${(props) => (props.disabled ? 0.3 : 1)};
   border-radius: 2px;
   transition: 0.8s ease-in-out;
+  cursor: pointer;
 `;
 
 export default Button;

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const SSeparator = styled.div`
-  margin: 20px 0px 30px 0px;
+interface IProps {
+  smallMargin: boolean;
+}
+
+const SSeparator = styled.div<IProps>`
+  margin: 20px 0px ${(props) => (props.smallMargin ? "0" : "30px")} 0px;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -19,9 +23,10 @@ const SSeparator = styled.div`
   }
 `;
 
-export default function Separator() {
+export default function Separator({ smallMargin }: IProps) {
+  console.log(smallMargin);
   return (
-    <SSeparator>
+    <SSeparator smallMargin={smallMargin}>
       <div></div>
       <span>Or</span>
       <div></div>

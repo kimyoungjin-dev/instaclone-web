@@ -1,7 +1,6 @@
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-import AuthLayout from "../Components/Auth/AuthLayout";
+import Container from "../Components/Auth/Container";
 import BottomBox from "../Components/Auth/BottomBox";
 import TopBox from "../Components/Auth/TopBox";
 import Input from "../Components/Auth/Input";
@@ -11,14 +10,8 @@ import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
-
-const FacebookLogin = styled.div`
-  color: #385285;
-  span {
-    margin-left: 10px;
-    font-weight: 600;
-  }
-`;
+import Form from "../Components/Auth/Form";
+import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
 
 interface IForm {
   username: string;
@@ -34,52 +27,59 @@ export default function Login() {
     mode: "onChange",
   });
 
-  const onValid = (data: any) => console.log(data);
+  const onValid = (data: IForm) => console.log(data);
 
   return (
-    <AuthLayout>
+    <Container>
       <PageTitle title="Login" />
       <TopBox>
-        <form onSubmit={handleSubmit(onValid)}>
+        <Form onSubmit={handleSubmit(onValid)}>
           <Input
             {...register("username", {
               required: true,
               minLength: {
                 value: 5,
-                message: "Email or ID must be at least 5 characters long",
+                message: "아이디는 10글자 이상이어야 합니다.",
               },
             })}
             type="text"
-            placeholder="UserName or Email"
+            placeholder="전화번호, 사용자 이름 또는 이메일"
             hasError={Boolean(errors?.username?.message)}
           />
           <ErrorMessage message={errors?.username?.message} />
+
           <Input
             {...register("password", {
               required: true,
               minLength: {
                 value: 10,
-                message: "Password must be at least 10 characters long.",
+                message: "비밀번호는 10글자 이상이어야 합니다.",
               },
             })}
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
           />
-          <ErrorMessage message={errors?.username?.message} />
-          <SubmitButton type="submit" value="Log in" disabled={!isValid} />
-        </form>
-        <Separator />
+          <ErrorMessage message={errors?.password?.message} />
+
+          <SubmitButton type="submit" disabled={!isValid}>
+            로그인
+          </SubmitButton>
+        </Form>
+
+        <Separator smallMargin={false} />
+
         <FacebookLogin>
           <FontAwesomeIcon icon={faFacebookSquare} />
-          <span>Log in with Facebook</span>
+          <span>Facebook으로 로그인</span>
         </FacebookLogin>
+        <ForgotPassword>비밀번호를 잊으셨나요?</ForgotPassword>
       </TopBox>
       <BottomBox
-        text="Don`t have an account?"
+        text="계정이 없으신가요?"
         linkText="Sign up"
         link={routes.signUp}
       />
-    </AuthLayout>
+    </Container>
   );
 }
