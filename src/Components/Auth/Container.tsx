@@ -4,7 +4,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const Container = styled.div`
+const SContainer = styled.div`
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -17,10 +17,10 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-export default function AuthLayout({ children }: IProps) {
+export default function Container({ children }: IProps) {
   return (
-    <Container>
+    <SContainer>
       <Wrapper>{children}</Wrapper>
-    </Container>
+    </SContainer>
   );
 }
