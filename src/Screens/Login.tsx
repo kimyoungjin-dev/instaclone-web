@@ -12,34 +12,77 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/client";
+import { login, loginVariables, login_login } from "../__generated__/login";
 
 interface IForm {
   username: string;
   password: string;
+  resultError: string;
 }
+
+const LOGIN_MUTATION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
 
 export default function Login() {
   const {
     register,
     handleSubmit,
+    getValues,
+    setError,
     formState: { errors, isValid },
   } = useForm<IForm>({
     mode: "onChange",
   });
 
-  const onValid = (data: IForm) => console.log(data);
+  const [login, { loading }] = useMutation<login, loginVariables>(
+    LOGIN_MUTATION,
+    {
+      onCompleted: (data) => {
+        const {
+          login: { ok, error, token },
+        } = data;
+        if (!ok) {
+          return setError("resultError", {
+            message: error || undefined,
+          });
+        }
+      },
+    }
+  );
+
+  const onSubmit = () => {
+    const { username, password } = getValues();
+    if (loading) {
+      return;
+    }
+    login({
+      variables: {
+        username,
+        password,
+      },
+    });
+  };
 
   return (
     <Container>
       <PageTitle title="Login" />
       <TopBox>
-        <Form onSubmit={handleSubmit(onValid)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("username", {
               required: true,
               minLength: {
-                value: 5,
-                message: "아이디는 10글자 이상이어야 합니다.",
+                value: 4,
+                message: "아이디는 4글자 이상이어야 합니다.",
               },
             })}
             type="text"
@@ -52,8 +95,8 @@ export default function Login() {
             {...register("password", {
               required: true,
               minLength: {
-                value: 10,
-                message: "비밀번호는 10글자 이상이어야 합니다.",
+                value: 4,
+                message: "비밀번호는 4글자 이상이어야 합니다.",
               },
             })}
             type="password"
@@ -62,9 +105,10 @@ export default function Login() {
           />
           <ErrorMessage message={errors?.password?.message} />
 
-          <SubmitButton type="submit" disabled={!isValid}>
-            로그인
+          <SubmitButton type="submit" disabled={!isValid || loading}>
+            {loading ? "Loading..." : "로그인"}
           </SubmitButton>
+          <ErrorMessage message={errors?.resultError?.message} />
         </Form>
 
         <Separator smallMargin={false} />
