@@ -90,14 +90,13 @@ export default function Login() {
             {...register("username", {
               required: true,
               minLength: {
-                value: 4,
-                message: "아이디는 4글자 이상이어야 합니다.",
+                value: 10,
+                message: "아이디는 10글자 이상이어야 합니다.",
               },
             })}
             type="text"
             placeholder="전화번호, 사용자 이름 또는 이메일"
             hasError={Boolean(errors?.username?.message)}
-            onChange={clearLoginError}
           />
           <ErrorMessage message={errors?.username?.message} />
 
@@ -112,15 +111,12 @@ export default function Login() {
             type="password"
             placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
-            onChange={clearLoginError}
           />
           <ErrorMessage message={errors?.password?.message} />
 
-          <SubmitButton
-            type="submit"
-            value={loading ? "Loading" : "Log in"}
-            disabled={!isValid || loading}
-          />
+          <SubmitButton type="submit" disabled={!isValid || loading}>
+            {loading ? "Loading" : "로그인"}
+          </SubmitButton>
           <ErrorMessage message={errors?.resultError?.message} />
         </Form>
 
