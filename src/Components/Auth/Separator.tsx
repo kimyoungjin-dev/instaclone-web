@@ -24,7 +24,6 @@ const SSeparator = styled.div<IProps>`
 `;
 
 export default function Separator({ smallMargin }: IProps) {
-  console.log(smallMargin);
   return (
     <SSeparator smallMargin={smallMargin}>
       <div></div>
