@@ -63,7 +63,7 @@ export default function Login() {
       },
     }
   );
-  console.log(isValid);
+
   const onSubmit = () => {
     if (loading) {
       return;
@@ -97,6 +97,7 @@ export default function Login() {
             type="text"
             placeholder="전화번호, 사용자 이름 또는 이메일"
             hasError={Boolean(errors?.username?.message)}
+            onChange={clearLoginError}
           />
           <ErrorMessage message={errors?.username?.message} />
 
@@ -111,12 +112,15 @@ export default function Login() {
             type="password"
             placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
+            onChange={clearLoginError}
           />
           <ErrorMessage message={errors?.password?.message} />
 
-          <SubmitButton type="submit" disabled={!isValid || loading}>
-            {loading ? "계정 로그인중.." : "로그인"}
-          </SubmitButton>
+          <SubmitButton
+            type="submit"
+            value={loading ? "Loading" : "Log in"}
+            disabled={!isValid || loading}
+          />
           <ErrorMessage message={errors?.resultError?.message} />
         </Form>
 

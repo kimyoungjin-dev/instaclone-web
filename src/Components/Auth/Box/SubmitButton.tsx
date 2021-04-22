@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-const Button = styled.button`
-  outline: none;
-  border: none;
+const Button = styled.input`
   margin-top: 12px;
-  background-color: ${(props) => props.theme.accent};
+  background-color: ${(props) => props.theme.loginBtnColor};
   color: white;
   text-align: center;
   padding: 8px 0px;
