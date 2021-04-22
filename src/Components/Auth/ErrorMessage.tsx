@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const Message = styled.span`
-  color: silver;
+  color: red;
   font-size: 10px;
   margin: 5px 0px;
 `;
