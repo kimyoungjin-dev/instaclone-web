@@ -11,7 +11,7 @@ import reset from "styled-reset";
 export const light: DefaultTheme = {
   bgColor: "white",
   fontColor: "black",
-  accent: "#0095f6",
+  loginBtnColor: "#0095f6",
   borderColor: "rgb(219,219,219)",
   silverColor: "silver",
 };

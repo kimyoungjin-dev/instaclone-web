@@ -4,7 +4,7 @@ declare module "styled-components" {
   export interface DefaultTheme {
     bgColor: string;
     fontColor: string;
-    accent: string;
+    loginBtnColor: string;
     borderColor: string;
     silverColor: string;
   }
