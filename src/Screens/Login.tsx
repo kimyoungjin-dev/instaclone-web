@@ -14,7 +14,7 @@ import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
-import { login, loginVariables, login_login } from "../__generated__/login";
+import { login, loginVariables } from "../__generated__/login";
 
 interface IForm {
   username: string;
@@ -38,6 +38,7 @@ export default function Login() {
     handleSubmit,
     getValues,
     setError,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm<IForm>({
     mode: "onChange",
@@ -58,7 +59,6 @@ export default function Login() {
       },
     }
   );
-
   const onSubmit = () => {
     if (loading) {
       return;
@@ -88,6 +88,7 @@ export default function Login() {
             type="text"
             placeholder="전화번호, 사용자 이름 또는 이메일"
             hasError={Boolean(errors?.username?.message)}
+            onChange={() => clearErrors("resultError")}
           />
           <ErrorMessage message={errors?.username?.message} />
 
@@ -102,6 +103,7 @@ export default function Login() {
             type="password"
             placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
+            onChange={() => clearErrors("resultError")}
           />
           <ErrorMessage message={errors?.password?.message} />
 
