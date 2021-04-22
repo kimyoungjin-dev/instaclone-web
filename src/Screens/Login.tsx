@@ -26,8 +26,8 @@ const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
       ok
-      token
       error
+      token
     }
   }
 `;
@@ -51,7 +51,7 @@ export default function Login() {
           login: { ok, error, token },
         } = data;
         if (!ok) {
-          return setError("resultError", {
+          setError("resultError", {
             message: error || undefined,
           });
         }
@@ -60,10 +60,10 @@ export default function Login() {
   );
 
   const onSubmit = () => {
-    const { username, password } = getValues();
     if (loading) {
       return;
     }
+    const { username, password } = getValues();
     login({
       variables: {
         username,
@@ -106,7 +106,7 @@ export default function Login() {
           <ErrorMessage message={errors?.password?.message} />
 
           <SubmitButton type="submit" disabled={!isValid || loading}>
-            {loading ? "Loading..." : "로그인"}
+            {loading ? "계정 로그인중.." : "로그인"}
           </SubmitButton>
           <ErrorMessage message={errors?.resultError?.message} />
         </Form>
