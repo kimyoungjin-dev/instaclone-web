@@ -14,7 +14,7 @@ const SBottomBox = styled(BaseBox)`
   a {
     font-weight: 600;
     margin-left: 5px;
-    color: ${(props) => props.theme.accent};
+    color: ${(props) => props.theme.loginBtnColor};
   }
 `;
 
