@@ -10,13 +10,14 @@ const Container = styled(BaseBox)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 35px 40px 25px 40px;
+  padding: 20px 40px 25px 40px;
   margin-bottom: 10px;
 `;
 
 const Text = styled.h1`
-  font-size: 45px;
+  font-size: 30px;
   font-family: "Caveat Brush", cursive;
+  margin-bottom: 18px;
 `;
 
 export default function TopBox({ children }: IProps) {
