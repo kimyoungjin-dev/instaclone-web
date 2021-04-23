@@ -15,43 +15,15 @@ import Separator from "../Components/Auth/Separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { useForm } from "react-hook-form";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   createAccount,
   createAccountVariables,
 } from "../__generated__/createAccount";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import { useHistory } from "react-router-dom";
-
-interface IForm {
-  username: string;
-  password: string;
-  firstName: string;
-  lastName?: string;
-  email: string;
-  createResultError: string;
-}
-
-const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccount(
-    $firstName: String!
-    $lastName: String
-    $username: String!
-    $email: String!
-    $password: String!
-  ) {
-    createAccount(
-      firstName: $firstName
-      lastName: $lastName
-      username: $username
-      email: $email
-      password: $password
-    ) {
-      ok
-      error
-    }
-  }
-`;
+import { CREATE_ACCOUNT_MUTATION } from "../Components/Auth/SignUp/SignUpMutation";
+import { IForm } from "../Components/Auth/SignUp/SignUpInterface";
 
 export default function SignUp() {
   const {
@@ -66,7 +38,6 @@ export default function SignUp() {
   });
 
   const history = useHistory();
-
   const [createAccount, { loading }] = useMutation<
     createAccount,
     createAccountVariables
@@ -103,6 +74,8 @@ export default function SignUp() {
   // const clearCreateError = () => {
   //   clearErrors("createResultError");
   // };
+
+  console.log(errors);
   return (
     <Container>
       <PageTitle title="Sign Up" />
