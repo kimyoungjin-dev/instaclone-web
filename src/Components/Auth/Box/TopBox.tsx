@@ -1,9 +1,6 @@
 import styled from "styled-components";
+import { ChilrenProps } from "../../interface";
 import { BaseBox } from "../../SharedStyles";
-
-interface IProps {
-  children: React.ReactNode;
-}
 
 const Container = styled(BaseBox)`
   display: flex;
@@ -20,7 +17,7 @@ const Text = styled.h1`
   margin-bottom: 18px;
 `;
 
-export default function TopBox({ children }: IProps) {
+export default function TopBox({ children }: ChilrenProps) {
   return (
     <Container>
       <Text>Instagram</Text>

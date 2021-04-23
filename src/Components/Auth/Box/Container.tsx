@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface IProps {
-  children: React.ReactNode;
-}
+import { ChilrenProps } from "../../interface";
 
 const SContainer = styled.div`
   display: flex;
@@ -17,7 +14,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-export default function Container({ children }: IProps) {
+export default function Container({ children }: ChilrenProps) {
   return (
     <SContainer>
       <Wrapper>{children}</Wrapper>
