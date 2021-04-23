@@ -12,10 +12,17 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
+import { useLocation } from "react-router-dom";
+import Notification from "../Components/Auth/Login/Notification";
+
+interface LocationState {
+  message: string;
+  username: string;
+  password: string;
+}
 
 interface IForm {
   username: string;
@@ -34,6 +41,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default function Login() {
+  const location = useLocation<LocationState>();
   const {
     register,
     handleSubmit,
@@ -58,7 +66,7 @@ export default function Login() {
           });
         }
         if (token) {
-          logUserIn(token);
+          return logUserIn(token);
         }
       },
     }
@@ -83,15 +91,17 @@ export default function Login() {
     <Container>
       <PageTitle title="Login" />
       <TopBox>
+        <Notification message={location?.state?.message} />
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("username", {
-              required: true,
+              required: "아이디는 필수입력입니다.",
               minLength: {
                 value: 1,
-                message: "아이디는 최소1글자 이상이어야 합니다.",
+                message: "아이디는 최소한 1글자 이상이어야 합니다.",
               },
             })}
+            defaultValue={location?.state?.username}
             type="text"
             placeholder="전화번호, 사용자 이름 또는 이메일"
             hasError={Boolean(errors?.username?.message)}
@@ -99,11 +109,16 @@ export default function Login() {
           <ErrorMessage message={errors?.username?.message} />
 
           <Input
+            defaultValue={location?.state?.password}
             {...register("password", {
-              required: true,
+              required: "비밀번호는 필수 입력조건 입니다.",
               minLength: {
                 value: 4,
-                message: "비밀번호는 4글자 이상이어야 합니다.",
+                message: "비밀번호는 5글자 이상 15글자 미만이어야 합니다.",
+              },
+              maxLength: {
+                value: 15,
+                message: "비밀번호는 5글자 이상 15글자 미만이어야 합니다.",
               },
             })}
             type="password"
