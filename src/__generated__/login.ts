@@ -10,8 +10,8 @@
 export interface login_login {
   __typename: "LoginResult";
   ok: boolean;
-  token: string | null;
   error: string | null;
+  token: string | null;
 }
 
 export interface login {
