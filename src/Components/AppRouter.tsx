@@ -10,7 +10,7 @@ interface IProps {
   isLoggedIn: Boolean;
 }
 
-const AppRouter: React.FC<IProps> = ({ isLoggedIn }) => {
+export default function AppRouter({ isLoggedIn }: IProps) {
   return (
     <Router>
       <Switch>
@@ -30,6 +30,4 @@ const AppRouter: React.FC<IProps> = ({ isLoggedIn }) => {
       </Switch>
     </Router>
   );
-};
-
-export default AppRouter;
+}

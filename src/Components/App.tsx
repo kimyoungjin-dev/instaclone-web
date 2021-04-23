@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles, light } from "../styles/styles";
 import { HelmetProvider } from "react-helmet-async";
 
-const App = () => {
+export default function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const darkMode = useReactiveVar(darkModeVar);
 
@@ -19,6 +19,4 @@ const App = () => {
       </HelmetProvider>
     </ApolloProvider>
   );
-};
-
-export default App;
+}
