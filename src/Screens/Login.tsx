@@ -17,28 +17,8 @@ import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
 import { useLocation } from "react-router-dom";
 import Notification from "../Components/Auth/Login/Notification";
-
-interface LocationState {
-  message: string;
-  username: string;
-  password: string;
-}
-
-interface IForm {
-  username: string;
-  password: string;
-  resultError: string;
-}
-
-const LOGIN_MUTATION = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      ok
-      error
-      token
-    }
-  }
-`;
+import { IForm, LocationState } from "../Components/Auth/Login/LoginInterface";
+import { LOGIN_MUTATION } from "../Components/Auth/Login/LoginMutation";
 
 export default function Login() {
   const location = useLocation<LocationState>();
@@ -95,7 +75,7 @@ export default function Login() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("username", {
-              required: "아이디는 필수입력입니다.",
+              required: "아이디는 필수 입력조건 입니다.",
               minLength: {
                 value: 1,
                 message: "아이디는 최소한 1글자 이상이어야 합니다.",
