@@ -59,10 +59,9 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
-    getValues,
-    formState: { errors },
     setError,
     clearErrors,
+    formState: { errors },
   } = useForm<IForm>({
     mode: "onChange",
   });
@@ -76,27 +75,23 @@ export default function SignUp() {
         createAccount: { ok, error },
       } = data;
       if (!ok) {
-        //에러메시지를 출력합니다.
         setError("createResultError", {
           message: error || undefined,
         });
-        //홈으로 돌려보냅니다.
         history.push(routes.home);
       }
     },
   });
 
-  //loading중이면 return=>중단 // createAccount를 호출해서 getvaluse()와 일치시킵니다.
   const onSubmit = (data: IForm) => {
-    if (loading) {
-      return;
-    }
+    if (loading) return;
     createAccount({
       variables: {
         ...data,
       },
     });
   };
+  //loading중이면 return=>중단 // createAccount를 호출해서 getvaluse()와 일치시킵니다.
 
   // const clearCreateError = () => {
   //   clearErrors("createResultError");
