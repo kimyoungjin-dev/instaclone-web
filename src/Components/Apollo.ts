@@ -2,9 +2,9 @@ import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 
 const TOKEN = "token";
 
+// //login
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)));
 
-//login
 export const logUserIn = (token: string) => {
   localStorage.setItem(TOKEN, token);
   isLoggedInVar(true);
