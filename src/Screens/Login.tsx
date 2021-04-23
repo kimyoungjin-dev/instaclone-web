@@ -37,7 +37,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    getValues,
     setError,
     clearErrors,
     formState: { errors, isValid },
@@ -52,6 +51,7 @@ export default function Login() {
         const {
           login: { ok, error, token },
         } = data;
+
         if (!ok) {
           return setError("resultError", {
             message: error || undefined,
@@ -64,22 +64,20 @@ export default function Login() {
     }
   );
 
-  const onSubmit = () => {
+  const onSubmit = (data: IForm) => {
     if (loading) {
       return;
     }
-    const { username, password } = getValues();
     login({
       variables: {
-        username,
-        password,
+        ...data,
       },
     });
   };
 
-  const clearLoginError = () => {
-    clearErrors("resultError");
-  };
+  // const clearLoginError = () => {
+  //   clearErrors("resultError");
+  // };
 
   return (
     <Container>
@@ -90,8 +88,8 @@ export default function Login() {
             {...register("username", {
               required: true,
               minLength: {
-                value: 10,
-                message: "아이디는 10글자 이상이어야 합니다.",
+                value: 1,
+                message: "아이디는 최소1글자 이상이어야 합니다.",
               },
             })}
             type="text"
