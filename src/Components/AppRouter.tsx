@@ -1,15 +1,14 @@
+import { useReactiveVar } from "@apollo/client";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import routes from "../routes";
 import Home from "../Screens/Home";
 import Login from "../Screens/Login";
 import NotFound from "../Screens/NotFound";
 import SignUp from "../Screens/SignUp";
+import { isLoggedInVar } from "./Apollo";
 
-interface IProps {
-  isLoggedIn: Boolean;
-}
-
-export default function AppRouter({ isLoggedIn }: IProps) {
+export default function AppRouter() {
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   return (
     <Router>
       <Switch>
