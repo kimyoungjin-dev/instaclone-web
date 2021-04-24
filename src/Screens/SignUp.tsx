@@ -133,6 +133,10 @@ export default function SignUp() {
           <Input
             {...register("username", {
               required: "닉네임은 필수 입력내용 입니다.",
+              minLength: {
+                value: 1,
+                message: "아이디는 최소한 1글자 이상이어야 합니다.",
+              },
             })}
             type="text"
             placeholder="닉네임"
@@ -144,12 +148,12 @@ export default function SignUp() {
             {...register("password", {
               required: "비밀번호는 필수 입력내용 입니다.",
               minLength: {
-                value: 5,
-                message: "최소 5글자이상 15글자 미만으로 입력해야 합니다.",
+                value: 4,
+                message: "비밀번호는 4글자 이상 15글자 미만이어야 합니다.",
               },
               maxLength: {
                 value: 15,
-                message: "최소 5글자이상 15글자 미만으로 입력해야 합니다.",
+                message: "비밀번호는 4글자 이상 15글자 미만이어야 합니다.",
               },
             })}
             type="password"
