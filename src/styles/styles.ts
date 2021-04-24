@@ -1,16 +1,17 @@
 import { createGlobalStyle, DefaultTheme } from "styled-components";
 import reset from "styled-reset";
 
-// export const dark: DefaultTheme = {
-//   bgColor: "black",
-//   fontColor: "white",
-//   accent: "#0095f6",
-//   borderColor: "rgb(219,219,219)",
-// };
-
 export const light: DefaultTheme = {
-  bgColor: "white",
-  fontColor: "black",
+  bgColor: "#FAFAFA",
+  fontColor: "rgb(38,38,38)",
+  loginBtnColor: "#0095f6",
+  borderColor: "rgb(219,219,219)",
+  silverColor: "silver",
+};
+
+export const dark: DefaultTheme = {
+  bgColor: "rgb(38,38,38)",
+  fontColor: "#FAFAFA",
   loginBtnColor: "#0095f6",
   borderColor: "rgb(219,219,219)",
   silverColor: "silver",
@@ -38,8 +39,8 @@ export const GlobalStyles = createGlobalStyle`
     body{
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size:14px;
-        background-color:#FAFAFA;
-        color:rgb(38,38,38);
+        background-color:${(props) => props.theme.bgColor};
+        color:${(props) => props.theme.fontColor};
     }
     
    
