@@ -6,7 +6,7 @@ import Login from "../Screens/Login";
 import NotFound from "../Screens/NotFound";
 import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
-import HeaderLayOut from "./HeaderLayOut";
+import HeaderLayOut from "./Header/HeaderLayOut";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
