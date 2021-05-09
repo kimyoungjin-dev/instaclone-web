@@ -26,7 +26,6 @@ export default function Login() {
     register,
     handleSubmit,
     setError,
-    clearErrors,
     formState: { errors, isValid },
   } = useForm<IForm>({
     mode: "onChange",
@@ -39,24 +38,18 @@ export default function Login() {
         const {
           login: { ok, error, token },
         } = data;
-
         if (!ok) {
           return setError("resultError", {
             message: error || undefined,
           });
         }
-
-        if (token) {
-          return logUserIn(token);
-        }
+        if (token) return logUserIn(token);
       },
     }
   );
 
   const onSubmit = (data: IForm) => {
-    if (loading) {
-      return;
-    }
+    if (loading) return;
     login({
       variables: {
         ...data,

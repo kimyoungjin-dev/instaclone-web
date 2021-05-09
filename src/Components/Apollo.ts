@@ -10,8 +10,6 @@ const TOKEN = "token";
 const DARKMODE = "DARKMODE";
 
 //setContext는 클라이언트의 모든 Requestdp 항목을 추가할수있게 해준다.
-//참고문서 : https://www.apollographql.com/docs/react/networking/advanced-http-networking/#gatsby-focus-wrapper
-//참고문서 : https://www.apollographql.com/docs/react/api/link/apollo-link-context/#overview
 //setContext의 첫번째인자는 GraphQL요청(현재는 사용x)
 const authLink = setContext((_, { headers }) => {
   return {
