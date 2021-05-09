@@ -4,6 +4,7 @@ import { isLoggedInVar } from "../Apollo";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
 import { iconArray } from "./IconData";
+import useUser from "../Hooks/useUser";
 
 const Container = styled.div`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
@@ -45,7 +46,7 @@ const Icon = styled.span`
 
 export default function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-
+  const loggedInUser = useUser();
   return (
     <Container>
       <Wrapper>
@@ -55,8 +56,8 @@ export default function Header() {
         <Column>
           {isLoggedIn ? (
             <>
-              {iconArray.map((icon) => (
-                <Icon>
+              {iconArray.map((icon, index) => (
+                <Icon key={index}>
                   <icon.name />
                 </Icon>
               ))}
