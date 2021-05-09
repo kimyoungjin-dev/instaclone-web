@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
 import { useLocation } from "react-router-dom";
@@ -31,7 +31,6 @@ export default function Login() {
   } = useForm<IForm>({
     mode: "onChange",
   });
-
   const [login, { loading }] = useMutation<login, loginVariables>(
     LOGIN_MUTATION,
     {
