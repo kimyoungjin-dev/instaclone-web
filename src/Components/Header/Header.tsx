@@ -48,6 +48,7 @@ const Icon = styled.span`
 
 const IconContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export default function Header() {
@@ -80,7 +81,7 @@ export default function Header() {
               </Icon>
 
               <Icon>
-                <Avatar url={data?.me?.avatar || undefined} />
+                <Avatar url={data?.me?.avatar || undefined} lg={false} />
               </Icon>
             </IconContainer>
           ) : (
