@@ -6,6 +6,7 @@ import Login from "../Screens/Login";
 import NotFound from "../Screens/NotFound";
 import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
+import HeaderLayOut from "./HeaderLayOut";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -13,7 +14,13 @@ export default function AppRouter() {
     <Router>
       <Switch>
         <Route exact path={routes.home}>
-          {isLoggedIn ? <Home /> : <Login />}
+          {isLoggedIn ? (
+            <HeaderLayOut>
+              <Home />
+            </HeaderLayOut>
+          ) : (
+            <Login />
+          )}
         </Route>
 
         {!isLoggedIn ? (
