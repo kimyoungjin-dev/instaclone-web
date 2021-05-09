@@ -3,8 +3,10 @@ import { useReactiveVar } from "@apollo/client";
 import { isLoggedInVar } from "../Apollo";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
-import { iconArray } from "./IconData";
 import useUser from "../Hooks/useUser";
+import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
+import { BiGhost, BiUserCircle } from "react-icons/bi";
+import { HiOutlinePaperAirplane } from "react-icons/hi";
 
 const Container = styled.div`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
@@ -31,11 +33,11 @@ const Column = styled.div`
 `;
 
 const Button = styled.span`
-  padding: 5px;
+  padding: 8px;
   background-color: ${(props) => props.theme.loginBtnColor};
   color: white;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 3px;
 `;
 
@@ -46,7 +48,8 @@ const Icon = styled.span`
 
 export default function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-  const loggedInUser = useUser();
+  const { data } = useUser();
+  console.log(data);
 
   return (
     <Container>
@@ -55,13 +58,33 @@ export default function Header() {
           <h1>Instaram</h1>
         </Column>
         <Column>
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <>
-              {iconArray.map((icon, index) => (
-                <Icon key={index}>
-                  <icon.name />
+              <Icon>
+                <AiFillHome />
+              </Icon>
+
+              <Icon>
+                <HiOutlinePaperAirplane />
+              </Icon>
+
+              <Icon>
+                <AiOutlineCompass />
+              </Icon>
+
+              <Icon>
+                <AiOutlineHeart />
+              </Icon>
+
+              {data?.me?.avatar ? (
+                <Icon>
+                  <BiGhost />
                 </Icon>
-              ))}
+              ) : (
+                <Icon>
+                  <BiUserCircle />
+                </Icon>
+              )}
             </>
           ) : (
             <Link to={routes.home}>
