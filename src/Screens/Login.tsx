@@ -45,6 +45,7 @@ export default function Login() {
             message: error || undefined,
           });
         }
+
         if (token) {
           return logUserIn(token);
         }
