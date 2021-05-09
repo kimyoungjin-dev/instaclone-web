@@ -27,5 +27,5 @@ export default function useUser() {
     }
   }, [data]);
 
-  return <></>;
+  return { data };
 }
