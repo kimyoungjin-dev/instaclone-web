@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import routes from "../../routes";
 import useUser from "../Hooks/useUser";
 import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
-import { BiGhost, BiUserCircle } from "react-icons/bi";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
+import Avatar from "../Avatar";
 
 const Container = styled.div`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
@@ -46,6 +46,10 @@ const Icon = styled.span`
   font-size: 20px;
 `;
 
+const IconContainer = styled.div`
+  display: flex;
+`;
+
 export default function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data } = useUser();
@@ -58,8 +62,8 @@ export default function Header() {
           <h1>Instaram</h1>
         </Column>
         <Column>
-          {!isLoggedIn ? (
-            <>
+          {isLoggedIn ? (
+            <IconContainer>
               <Icon>
                 <AiFillHome />
               </Icon>
@@ -76,16 +80,10 @@ export default function Header() {
                 <AiOutlineHeart />
               </Icon>
 
-              {data?.me?.avatar ? (
-                <Icon>
-                  <BiGhost />
-                </Icon>
-              ) : (
-                <Icon>
-                  <BiUserCircle />
-                </Icon>
-              )}
-            </>
+              <Icon>
+                <Avatar url={data?.me?.avatar || undefined} />
+              </Icon>
+            </IconContainer>
           ) : (
             <Link to={routes.home}>
               <Button>Login</Button>
