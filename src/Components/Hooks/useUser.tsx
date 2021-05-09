@@ -7,6 +7,7 @@ import { isLoggedInVar, logUserOut } from "../Apollo";
 const ME_QUERY = gql`
   query me {
     me {
+      id
       username
       avatar
     }
@@ -14,12 +15,13 @@ const ME_QUERY = gql`
 `;
 export default function useUser() {
   //isToken : token이 존재하는지 확인 /Boolean
-  const isToken = useReactiveVar(isLoggedInVar);
+  const hasToken = useReactiveVar(isLoggedInVar);
   //data: me{username, avatar} 형태
   //skip: user가 token===null이면 query를 건너뛴다.
-  const { data } = useQuery<me, me_me>(ME_QUERY, {
-    skip: !isToken,
+  const { data } = useQuery<me>(ME_QUERY, {
+    skip: !hasToken,
   });
+
   //컴포넌트가 마운트 될때, 만약 me가 null 인 경우라면 로그아웃을 해버린다.의존성 배열에는 data를 넣어준다.
   useEffect(() => {
     if (data?.me === null) {
