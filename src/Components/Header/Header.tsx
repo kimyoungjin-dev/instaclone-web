@@ -47,6 +47,7 @@ const Icon = styled.span`
 export default function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const loggedInUser = useUser();
+
   return (
     <Container>
       <Wrapper>
