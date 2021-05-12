@@ -80,6 +80,30 @@ export default function Photo({
     variables: {
       id,
     },
+
+    //cache: cache를 제어할수있는 link이다.
+    update: (cache: any, result) => {
+      if (result.data) {
+        const {
+          data: {
+            toggleLike: { ok },
+          },
+        } = result;
+        if (ok) {
+          cache.writeFragment({
+            id: `Photo:${id}`,
+            fragment: gql`
+              fragment BSName on Photo {
+                isLiked
+              }
+            `,
+            data: {
+              isLiked: !isLiked,
+            },
+          });
+        }
+      }
+    },
   });
 
   return (
