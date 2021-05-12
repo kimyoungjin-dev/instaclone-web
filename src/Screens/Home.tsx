@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div>
       {data?.seeFeed?.map((photo) => (
-        <Photo key={photo && photo.id} {...photo!} />
+        <Photo key={photo?.id} {...photo!} />
       ))}
     </div>
   );
