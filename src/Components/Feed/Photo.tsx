@@ -6,6 +6,12 @@ import styled from "styled-components";
 import { FatText } from "../SharedStyles";
 import Avatar from "../Avatar";
 import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/client";
+import {
+  toggleLike,
+  toggleLikeVariables,
+} from "../../__generated__/toggleLike";
 
 const PhotoContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -50,7 +56,31 @@ const Likes = styled(FatText)`
   margin-top: 10px;
 `;
 
-export default function Photo({ user, file, likes, isLiked }: seeFeed_seeFeed) {
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
+
+export default function Photo({
+  id,
+  user,
+  file,
+  likes,
+  isLiked,
+}: seeFeed_seeFeed) {
+  const [toggleLikeMutation, { loading }] = useMutation<
+    toggleLike,
+    toggleLikeVariables
+  >(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      id,
+    },
+  });
+
   return (
     <PhotoContainer>
       <PhotoHeader>
