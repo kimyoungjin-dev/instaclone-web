@@ -26,6 +26,8 @@ export default function Login() {
     register,
     handleSubmit,
     setError,
+    clearErrors,
+    trigger,
     formState: { errors, isValid },
   } = useForm<IForm>({
     mode: "onChange",
@@ -57,9 +59,9 @@ export default function Login() {
     });
   };
 
-  // const clearLoginError = () => {
-  //   clearErrors("resultError");
-  // };
+  const clearLoginError = () => {
+    clearErrors("resultError");
+  };
 
   return (
     <Container>
@@ -74,6 +76,12 @@ export default function Login() {
                 value: 1,
                 message: "아이디는 최소한 1글자 이상이어야 합니다.",
               },
+              validate: (): any => {
+                if (errors.resultError) {
+                  clearLoginError();
+                  trigger();
+                }
+              },
             })}
             defaultValue={location?.state?.username}
             type="text"
@@ -85,6 +93,13 @@ export default function Login() {
           <Input
             defaultValue={location?.state?.password}
             {...register("password", {
+              validate: (): any => {
+                if (errors.resultError) {
+                  clearLoginError();
+                  trigger();
+                }
+              },
+
               required: "비밀번호는 필수 입력조건 입니다.",
               minLength: {
                 value: 4,
@@ -123,3 +138,22 @@ export default function Login() {
     </Container>
   );
 }
+
+// {...register('username', {
+//   required: 'Username is required',
+//   minLength: {
+//   value: 5,
+//   message: 'Username should be logner than 5 chars',
+//   },
+//   validate: () => {
+//   if (errors.result) {
+//   clearErrors('result');
+//   trigger();
+//   }
+//   },
+//   })}
+//   name="username"
+//   type="text"
+//   placeholder="Username"
+//   hasError={Boolean(errors?.username?.message)}
+//   />
