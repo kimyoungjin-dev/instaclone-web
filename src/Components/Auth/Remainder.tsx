@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export const FacebookLogin = styled.div`
-  color: #385285;
+  color: ${(props) => props.theme.fontColor};
   span {
     margin-left: 10px;
     font-weight: 600;
@@ -10,7 +10,7 @@ export const FacebookLogin = styled.div`
 `;
 
 export const ForgotPassword = styled.span`
+  color: ${(props) => props.theme.fontColor};
   font-size: 12px;
-  color: rgb(35, 79, 124);
   margin-top: 10px;
 `;
