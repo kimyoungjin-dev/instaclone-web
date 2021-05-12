@@ -24,6 +24,7 @@ import ErrorMessage from "../Components/Auth/ErrorMessage";
 import { useHistory } from "react-router-dom";
 import { CREATE_ACCOUNT_MUTATION } from "../Components/Auth/SignUp/SignUpMutation";
 import { IForm } from "../Components/Auth/SignUp/SignUpInterface";
+import { triggerAsyncId } from "node:async_hooks";
 
 export default function SignUp() {
   const {
@@ -32,6 +33,7 @@ export default function SignUp() {
     setError,
     clearErrors,
     getValues,
+    trigger,
     formState: { errors, isValid },
   } = useForm<IForm>({
     mode: "onChange",
@@ -71,11 +73,10 @@ export default function SignUp() {
     });
   };
 
-  // const clearCreateError = () => {
-  //   clearErrors("createResultError");
-  // };
+  const clearCreateError = () => {
+    clearErrors("createResultError");
+  };
 
-  console.log(errors);
   return (
     <Container>
       <PageTitle title="Sign Up" />
@@ -102,6 +103,12 @@ export default function SignUp() {
           <Input
             {...register("firstName", {
               required: "성 은 필수 입력내용 입니다.",
+              validate: (): any => {
+                if (errors.createResultError) {
+                  clearCreateError();
+                  trigger();
+                }
+              },
             })}
             type="text"
             placeholder="성"
@@ -119,7 +126,13 @@ export default function SignUp() {
                 message:
                   "이메일 형식은@를 포함하고 5글자를 이상 이어야 합니다.",
               },
-              validate: (value) => value.includes("@"),
+              validate: (value): any => {
+                if (errors.createResultError) {
+                  clearCreateError();
+                  trigger();
+                }
+                return value.includes("@");
+              },
             })}
             type="text"
             placeholder="Email"
