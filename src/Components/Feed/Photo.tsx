@@ -54,7 +54,7 @@ export default function Photo({ user, file, likes, isLiked }: seeFeed_seeFeed) {
   return (
     <PhotoContainer>
       <PhotoHeader>
-        <Avatar url={user.avatar || undefined} lg />
+        <Avatar url={user.avatar || undefined} isLarge={false} />
         <UserName>{user.username}</UserName>
       </PhotoHeader>
       <PhotoFile src={file} />
