@@ -23,6 +23,7 @@ export interface seeFeed_seeFeed {
   comments: number;
   createdAt: string;
   isMine: boolean;
+  isLiked: boolean;
 }
 
 export interface seeFeed {
