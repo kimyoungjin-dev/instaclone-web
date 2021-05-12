@@ -49,6 +49,7 @@ const PhotoActions = styled.div`
 
 const PhotoAction = styled.div`
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const Likes = styled(FatText)`
@@ -91,7 +92,7 @@ export default function Photo({
       <PhotoData>
         <PhotoActions>
           <div>
-            <PhotoAction>
+            <PhotoAction onClick={() => toggleLikeMutation()}>
               {isLiked ? (
                 <AiFillHeart
                   size={20}
