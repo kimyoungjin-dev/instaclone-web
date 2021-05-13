@@ -5,7 +5,7 @@ import { BiMessageRounded } from "react-icons/bi";
 import styled from "styled-components";
 import { FatText } from "../SharedStyles";
 import Avatar from "../Avatar";
-import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
+import { seeFeed, seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import gql from "graphql-tag";
 import { ApolloCache, useMutation } from "@apollo/client";
 import {
@@ -66,13 +66,35 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `;
 
+const Comments = styled.div`
+  margin-top: 20px;
+`;
+
+const Comment = styled.div``;
+
+const CommentCaption = styled.span`
+  margin-left: 10px;
+`;
+
+const CommentCount = styled.span`
+  opacity: 0.7;
+  margin: 10px 0px;
+  font-size: 12px;
+  display: block;
+  font-weight: 600;
+`;
+
 export default function Photo({
   id,
   user,
   file,
   likes,
   isLiked,
+  caption,
+  comments,
+  commentNumber,
 }: seeFeed_seeFeed) {
+  console.log(comments);
   const [toggleLikeMutation, { loading }] = useMutation<
     toggleLike,
     toggleLikeVariables
@@ -98,12 +120,12 @@ export default function Photo({
             }
           `;
 
-          const result: any = cache.readFragment({
+          const result: seeFeed | null = cache.readFragment({
             id: fragmentId,
             fragment,
           });
 
-          if ("likes" in result && "isLiked" in result) {
+          if ("likes" in result! && "isLiked" in result) {
             const { isLiked: cacheIsLiked, likes: cacheIsLikes } = result;
             cache.writeFragment({
               id: fragmentId,
@@ -156,6 +178,22 @@ export default function Photo({
           </div>
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
+        <Comments>
+          <Comment>
+            <FatText>{user.username}</FatText>
+            <CommentCaption>{caption}</CommentCaption>
+          </Comment>
+
+          <CommentCount>
+            {commentNumber === 1 ? "1 Comment" : `${commentNumber} Comments`}
+          </CommentCount>
+
+          {comments?.map((comment) => (
+            <Comment key={comment?.id}>
+              <FatText>{comment?.user.username}</FatText>
+            </Comment>
+          ))}
+        </Comments>
       </PhotoData>
     </PhotoContainer>
   );
