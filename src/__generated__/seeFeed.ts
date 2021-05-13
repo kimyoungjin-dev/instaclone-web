@@ -13,6 +13,21 @@ export interface seeFeed_seeFeed_user {
   avatar: string | null;
 }
 
+export interface seeFeed_seeFeed_comments_user {
+  __typename: "User";
+  username: string;
+  avatar: string | null;
+}
+
+export interface seeFeed_seeFeed_comments {
+  __typename: "Comment";
+  id: number;
+  user: seeFeed_seeFeed_comments_user;
+  payload: string;
+  isMine: boolean;
+  createdAt: string;
+}
+
 export interface seeFeed_seeFeed {
   __typename: "Photo";
   id: number;
@@ -20,7 +35,8 @@ export interface seeFeed_seeFeed {
   file: string;
   caption: string | null;
   likes: number;
-  comments: number;
+  commentNumber: number;
+  comments: (seeFeed_seeFeed_comments | null)[] | null;
   createdAt: string;
   isMine: boolean;
   isLiked: boolean;
