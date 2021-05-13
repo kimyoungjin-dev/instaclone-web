@@ -7,7 +7,7 @@ import { FatText } from "../SharedStyles";
 import Avatar from "../Avatar";
 import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
+import { ApolloCache, useMutation } from "@apollo/client";
 import {
   toggleLike,
   toggleLikeVariables,
@@ -82,20 +82,19 @@ export default function Photo({
     },
 
     //cache: cache를 제어할수있는 link이다.
-    update: (cache, result) => {
-      if (result.data) {
+    update: (cache: ApolloCache<toggleLike>, result) => {
+      if (result.data?.toggleLike.ok) {
         const {
           data: {
             toggleLike: { ok },
           },
         } = result;
-
         if (ok) {
           const fragmentId = `Photo:${id}`;
           const fragment = gql`
             fragment BSName on Photo {
-              isLiked
               likes
+              isLiked
             }
           `;
 
@@ -104,17 +103,14 @@ export default function Photo({
             fragment,
           });
 
-          if ("isLiked" in result && "likes" in result) {
-            const { isLiked: cacheIsLiked, likes: cacheLikes } = result;
-            //true = 1
-            //false = 0
+          if ("likes" in result && "isLiked" in result) {
+            const { isLiked: cacheIsLiked, likes: cacheIsLikes } = result;
             cache.writeFragment({
               id: fragmentId,
               fragment,
               data: {
                 isLiked: !cacheIsLiked,
-                //true 라면 ? cacheLikes에 -1 을 하고, false 라면 cacheLikes +1
-                likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+                likes: cacheIsLiked ? cacheIsLikes - 1 : cacheIsLikes + 1,
               },
             });
           }
