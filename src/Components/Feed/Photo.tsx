@@ -91,7 +91,6 @@ export default function Photo({
         } = result;
 
         if (ok) {
-                likes
           const fragmentId = `Photo:${id}`;
           const fragment = gql`
             fragment BSName on Photo {
