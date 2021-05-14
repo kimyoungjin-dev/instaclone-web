@@ -96,30 +96,18 @@ export default function Photo({
           },
         } = result;
         if (ok) {
-          const fragmentId = `Photo:${id}`;
-          const fragment = gql`
-            fragment BSName on Photo {
-              likes
-              isLiked
-            }
-          `;
-
-          const result: seeFeed | null = cache.readFragment({
-            id: fragmentId,
-            fragment,
-          });
-
-          if ("likes" in result! && "isLiked" in result) {
-            const { isLiked: cacheIsLiked, likes: cacheIsLikes } = result;
-            cache.writeFragment({
-              id: fragmentId,
-              fragment,
-              data: {
-                isLiked: !cacheIsLiked,
-                likes: cacheIsLiked ? cacheIsLikes - 1 : cacheIsLikes + 1,
+          const PhotoId = `Photo:${id}`;
+          cache.modify({
+            id: PhotoId,
+            fields: {
+              isLiked(prev) {
+                return !prev;
               },
-            });
-          }
+              likes(prev) {
+                return isLiked ? prev - 1 : prev + 1;
+              },
+            },
+          });
         }
       }
     },
