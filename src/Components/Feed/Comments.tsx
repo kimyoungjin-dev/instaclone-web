@@ -29,6 +29,8 @@ export default function Comments({
   caption,
 }: PhotoPros) {
   return (
+    //caption:loggendInUser가 작상한 caption
+    //comment?.payload!:사진에 유저가 작성한 payload
     <CommentsContainer>
       <Comment user={user} caption={caption} />
       <CommentCount>
