@@ -1,17 +1,18 @@
+import gql from "graphql-tag";
+import { ApolloCache, useMutation } from "@apollo/client";
+import { seeFeed, seeFeed_seeFeed } from "../../__generated__/seeFeed";
+import styled from "styled-components";
+import Avatar from "../Avatar";
 import { BsBookmark } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import { BiMessageRounded } from "react-icons/bi";
-import styled from "styled-components";
 import { FatText } from "../SharedStyles";
-import Avatar from "../Avatar";
-import { seeFeed, seeFeed_seeFeed } from "../../__generated__/seeFeed";
-import gql from "graphql-tag";
-import { ApolloCache, useMutation } from "@apollo/client";
 import {
   toggleLike,
   toggleLikeVariables,
 } from "../../__generated__/toggleLike";
+import Comments from "./Comments";
 
 const PhotoContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -66,23 +67,7 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `;
 
-const Comments = styled.div`
-  margin-top: 20px;
-`;
-
-const Comment = styled.div``;
-
-const CommentCaption = styled.span`
-  margin-left: 10px;
-`;
-
-const CommentCount = styled.span`
-  opacity: 0.7;
-  margin: 10px 0px;
-  font-size: 12px;
-  display: block;
-  font-weight: 600;
-`;
+//comments
 
 export default function Photo({
   id,
@@ -94,7 +79,6 @@ export default function Photo({
   comments,
   commentNumber,
 }: seeFeed_seeFeed) {
-  console.log(comments);
   const [toggleLikeMutation, { loading }] = useMutation<
     toggleLike,
     toggleLikeVariables
@@ -178,22 +162,12 @@ export default function Photo({
           </div>
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
-        <Comments>
-          <Comment>
-            <FatText>{user.username}</FatText>
-            <CommentCaption>{caption}</CommentCaption>
-          </Comment>
-
-          <CommentCount>
-            {commentNumber === 1 ? "1 Comment" : `${commentNumber} Comments`}
-          </CommentCount>
-
-          {comments?.map((comment) => (
-            <Comment key={comment?.id}>
-              <FatText>{comment?.user.username}</FatText>
-            </Comment>
-          ))}
-        </Comments>
+        <Comments
+          user={user}
+          commentNumber={commentNumber}
+          comments={comments}
+          caption={caption}
+        />
       </PhotoData>
     </PhotoContainer>
   );
