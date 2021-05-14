@@ -1,16 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import { FatText } from "../SharedStyles";
+import Comment from "./Comment";
 
 const CommentsContainer = styled.div`
   margin-top: 20px;
-`;
-
-const Comment = styled.div``;
-
-const CommentCaption = styled.span`
-  margin-left: 10px;
 `;
 
 const CommentCount = styled.span`
@@ -25,7 +19,9 @@ type PhotoPros = Pick<
   seeFeed_seeFeed,
   "user" | "commentNumber" | "comments" | "caption"
 >;
-
+//comments는 댓글을 단 유저의 정보를 보여준다.
+//user:나자신을 말한다.
+//user가 작성한 caption을 말한다.
 export default function Comments({
   user,
   commentNumber,
@@ -34,19 +30,17 @@ export default function Comments({
 }: PhotoPros) {
   return (
     <CommentsContainer>
-      <Comment>
-        <FatText>{user.username}</FatText>
-        <CommentCaption>{caption}</CommentCaption>
-      </Comment>
-
+      <Comment user={user} caption={caption} />
       <CommentCount>
         {commentNumber === 1 ? "1 Comment" : `${commentNumber} Comments`}
       </CommentCount>
 
       {comments?.map((comment) => (
-        <Comment key={comment?.id}>
-          <FatText>{comment?.user.username}</FatText>
-        </Comment>
+        <Comment
+          key={comment?.id}
+          user={comment?.user!}
+          caption={comment?.payload!}
+        />
       ))}
     </CommentsContainer>
   );
