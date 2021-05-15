@@ -122,7 +122,8 @@ export default function Comments({
       },
     });
   };
-
+  // map : 유저가만든 comments
+  // ??  : photo의 caption 이 comment처럼 보이기때문에 가져다쓴것.
   return (
     <CommentsContainer>
       <Comment author={author} payload={caption!} />
@@ -133,8 +134,11 @@ export default function Comments({
       {comments?.map((comment) => (
         <Comment
           key={comment?.id}
+          id={comment?.id!}
           author={comment?.user.username!}
           payload={comment?.payload!}
+          isMine={comment?.isMine!}
+          photoId={photoId}
         />
       ))}
       <div>
