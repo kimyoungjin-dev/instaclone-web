@@ -79,6 +79,7 @@ export default function Photo({
   comments,
   commentNumber,
 }: seeFeed_seeFeed) {
+  const author = user.username;
   const [toggleLikeMutation, { loading }] = useMutation<
     toggleLike,
     toggleLikeVariables
@@ -86,7 +87,7 @@ export default function Photo({
     variables: {
       id,
     },
-
+    
     //cache: cache를 제어할수있는 link이다.
     update: (cache: ApolloCache<toggleLike>, result) => {
       if (result.data?.toggleLike.ok) {
@@ -151,10 +152,10 @@ export default function Photo({
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
         <Comments
-          user={user}
+          author={user.username}
+          caption={caption}
           commentNumber={commentNumber}
           comments={comments}
-          caption={caption}
         />
       </PhotoData>
     </PhotoContainer>
