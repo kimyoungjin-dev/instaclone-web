@@ -33,23 +33,24 @@ const CommentCaption = styled.span`
   }
 `;
 
-interface UpdatedProps
-  extends Partial<Pick<seeFeed_seeFeed_comments, "id" | "isMine">> {
-  author: seeFeed_seeFeed_comments_user["username"];
-  payload: seeFeed_seeFeed_comments["payload"];
+interface UpdatedProps {
   photoId?: seeFeed_seeFeed["id"];
+  payload: seeFeed_seeFeed_comments["payload"];
+  isMine?: seeFeed_seeFeed_comments["isMine"];
+  author: seeFeed_seeFeed_comments_user["username"];
+  commentId?: seeFeed_seeFeed_comments["id"];
 }
 
 export default function Comment({
   author,
   payload,
-  id,
+  commentId,
   isMine,
   photoId,
 }: UpdatedProps) {
   const [deleteCommentMutation] = useMutation(DELETE_COMMENT_MUTATION, {
     variables: {
-      id,
+      id: commentId,
     },
     update: (cache, result) => {
       const {
@@ -59,7 +60,7 @@ export default function Comment({
       } = result;
       if (ok) {
         //id:Comment의 id
-        cache.evict({ id: `Comment:${id}` });
+        cache.evict({ id: `Comment:${commentId}` });
 
         //id:Photo의id
         cache.modify({
