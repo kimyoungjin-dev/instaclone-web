@@ -12,13 +12,22 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
 import { useLocation } from "react-router-dom";
 import Notification from "../Components/Auth/Login/Notification";
 import { LoginInterFace } from "../Components/Auth/Login/LoginInterface";
-import { LOGIN_MUTATION } from "../Components/Auth/Login/LoginMutation";
+
+const LOGIN_MUTATION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      ok
+      error
+      token
+    }
+  }
+`;
 
 export default function Login() {
   const location = useLocation<LoginInterFace>();
