@@ -4,8 +4,6 @@ import { FatText } from "../SharedStyles";
 import styled from "styled-components";
 import {
   seeFeed_seeFeed,
-  seeFeed_seeFeed_comments,
-  seeFeed_seeFeed_comments_user,
   seeFeed_seeFeed_user,
 } from "../../__generated__/seeFeed";
 
@@ -24,15 +22,11 @@ const CommentCaption = styled.span`
 `;
 
 interface UpdatedProps {
-  author:
-    | seeFeed_seeFeed_comments_user["username"]
-    | seeFeed_seeFeed_user["username"];
-  payload: seeFeed_seeFeed_comments["payload"] | seeFeed_seeFeed["caption"];
+  author: seeFeed_seeFeed_user["username"];
+  payload: seeFeed_seeFeed["caption"];
 }
 
 export default function Comment({ author, payload }: UpdatedProps) {
-  console.log("author", author);
-
   return (
     <CommentContainer>
       <FatText>{author}</FatText>
