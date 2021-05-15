@@ -1,6 +1,6 @@
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
-import { me, me_me } from "../../__generated__/me";
+import { me } from "../../__generated__/me";
 import { isLoggedInVar, logUserOut } from "../Apollo";
 
 //"사용자가 맞는지" 확인하는 me query를 백앤드로부터 불러온다.
@@ -13,6 +13,7 @@ const ME_QUERY = gql`
     }
   }
 `;
+
 export default function useUser() {
   //isToken : token이 존재하는지 확인 /Boolean
   const hasToken = useReactiveVar(isLoggedInVar);
