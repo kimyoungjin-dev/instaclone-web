@@ -8,7 +8,7 @@ import Separator from "../Components/Auth/Separator";
 import SubmitButton from "../Components/Auth/Box/SubmitButton";
 import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import Form from "../Components/Auth/Box/Form";
 import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
@@ -17,11 +17,11 @@ import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
 import { useLocation } from "react-router-dom";
 import Notification from "../Components/Auth/Login/Notification";
-import { IForm, LocationState } from "../Components/Auth/Login/LoginInterface";
+import { LoginInterFace } from "../Components/Auth/Login/LoginInterface";
 import { LOGIN_MUTATION } from "../Components/Auth/Login/LoginMutation";
 
 export default function Login() {
-  const location = useLocation<LocationState>();
+  const location = useLocation<LoginInterFace>();
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ export default function Login() {
     clearErrors,
     trigger,
     formState: { errors, isValid },
-  } = useForm<IForm>({
+  } = useForm<LoginInterFace>({
     mode: "onChange",
   });
 
@@ -50,7 +50,7 @@ export default function Login() {
     }
   );
 
-  const onSubmit = (data: IForm) => {
+  const onSubmit: SubmitHandler<loginVariables> = (data) => {
     if (loading) return;
     login({
       variables: {
@@ -103,7 +103,7 @@ export default function Login() {
               required: "비밀번호는 필수 입력조건 입니다.",
               minLength: {
                 value: 4,
-                message: "비밀번호는 5글자 이상 15글자 미만이어야 합니다.",
+                message: "비밀번호는 4글자 이상 15글자 미만이어야 합니다.",
               },
               maxLength: {
                 value: 15,
