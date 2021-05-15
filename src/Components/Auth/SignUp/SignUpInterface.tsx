@@ -1,8 +1,5 @@
-export interface IForm {
-  username: string;
-  password: string;
-  firstName: string;
-  lastName?: string;
-  email: string;
+import { createAccountVariables } from "../../../__generated__/createAccount";
+
+export interface SignUpProps extends createAccountVariables {
   createResultError: string;
 }
