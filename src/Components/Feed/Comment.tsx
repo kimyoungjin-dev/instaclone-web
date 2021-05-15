@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import { FatText } from "../SharedStyles";
+import styled from "styled-components";
+import {
+  seeFeed_seeFeed,
+  seeFeed_seeFeed_comments,
+  seeFeed_seeFeed_comments_user,
+  seeFeed_seeFeed_user,
+} from "../../__generated__/seeFeed";
 
 const CommentContainer = styled.div``;
 
@@ -18,22 +23,27 @@ const CommentCaption = styled.span`
   }
 `;
 
-type CommentProps = Pick<seeFeed_seeFeed, "user" | "caption">;
+interface UpdatedProps {
+  author:
+    | seeFeed_seeFeed_comments_user["username"]
+    | seeFeed_seeFeed_user["username"];
+  payload: seeFeed_seeFeed_comments["payload"] | seeFeed_seeFeed["caption"];
+}
 
-export default function Comment({ user, caption }: CommentProps) {
+export default function Comment({ author, payload }: UpdatedProps) {
+  console.log("author", author);
+
   return (
     <CommentContainer>
-      <FatText>{user.username}</FatText>
+      <FatText>{author}</FatText>
       <CommentCaption>
-        {caption?.split(" ").map((item, index) =>
+        {payload?.split(" ").map((item, index) =>
           /#[\w]+/.test(item) ? (
             <React.Fragment key={index}>
               <Link to={`hashtag${item}`}>{item}</Link>{" "}
             </React.Fragment>
           ) : (
-            <>
-              <React.Fragment key={index}>{item}</React.Fragment>{" "}
-            </>
+            <React.Fragment key={index}>{item} </React.Fragment>
           )
         )}
       </CommentCaption>
