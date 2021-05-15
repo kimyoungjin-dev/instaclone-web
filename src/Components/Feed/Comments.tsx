@@ -47,12 +47,12 @@ export default function Comments({
 }: UpdatedProps) {
   const { register, handleSubmit, setValue, getValues } = useForm();
   const { data: userData } = useUser();
-  console.log(userData);
+
   const [createCommentMutation, { loading }] = useMutation(
     CREAT_COMMENT_MUTATION,
     {
       update: (cache, result) => {
-        //setValue가 getValues보다 앞에 위치한다면 payload:"" 가됨
+        //setValue가 getValues보다 앞에 위치한다면 payload:""가되니 주의
         const { payload } = getValues();
         setValue("payload", "");
         if (result.data.createComment.id) {
