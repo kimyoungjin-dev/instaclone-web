@@ -1,7 +1,22 @@
+import { useMutation } from "@apollo/client";
+import gql from "graphql-tag";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
-import { FatText } from "../SharedStyles";
+import { createCommentVariables } from "../../__generated__/createComment";
+import {
+  seeFeed_seeFeed,
+  seeFeed_seeFeed_user,
+} from "../../__generated__/seeFeed";
 import Comment from "./Comment";
+
+const CREAT_COMMENT_MUTATION = gql`
+  mutation createComment($photoId: Int!, $payload: String!) {
+    createComment(photoId: $photoId, payload: $payload) {
+      ok
+      error
+    }
+  }
+`;
 
 const CommentsContainer = styled.div`
   margin-top: 20px;
@@ -15,24 +30,26 @@ const CommentCount = styled.span`
   font-weight: 600;
 `;
 
-type PhotoPros = Pick<
-  seeFeed_seeFeed,
-  "user" | "commentNumber" | "comments" | "caption"
->;
-//comments는 댓글을 단 유저의 정보를 보여준다.
-//user:나자신을 말한다.
-//user가 작성한 caption을 말한다.
+interface UpdatedProps
+  extends Pick<seeFeed_seeFeed, "comments" | "commentNumber" | "caption"> {
+  author: seeFeed_seeFeed_user["username"];
+}
+
 export default function Comments({
-  user,
+  author,
   commentNumber,
   comments,
   caption,
-}: PhotoPros) {
+}: UpdatedProps) {
+  const [createComment] = useMutation(CREAT_COMMENT_MUTATION);
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit: SubmitHandler<createCommentVariables> = (data) =>
+    console.log(data);
+
   return (
-    //caption:loggendInUser가 작상한 caption
-    //comment?.payload!:사진에 유저가 작성한 payload
     <CommentsContainer>
-      <Comment user={user} caption={caption} />
+      <Comment author={author} payload={caption} />
       <CommentCount>
         {commentNumber === 1 ? "1 Comment" : `${commentNumber} Comments`}
       </CommentCount>
@@ -40,10 +57,19 @@ export default function Comments({
       {comments?.map((comment) => (
         <Comment
           key={comment?.id}
-          user={comment?.user!}
-          caption={comment?.payload!}
+          author={comment?.user.username!}
+          payload={comment?.payload!}
         />
       ))}
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            {...register("payload", { required: true })}
+            type="text"
+            placeholder="Write a comment..."
+          />
+        </form>
+      </div>
     </CommentsContainer>
   );
 }
