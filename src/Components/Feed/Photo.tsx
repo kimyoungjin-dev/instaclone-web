@@ -87,7 +87,7 @@ export default function Photo({
     variables: {
       id,
     },
-    
+
     //cache: cache를 제어할수있는 link이다.
     update: (cache: ApolloCache<toggleLike>, result) => {
       if (result.data?.toggleLike.ok) {
@@ -152,6 +152,7 @@ export default function Photo({
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
         <Comments
+          photoId={id}
           author={user.username}
           caption={caption}
           commentNumber={commentNumber}
