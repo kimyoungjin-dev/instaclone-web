@@ -134,7 +134,7 @@ export default function Comments({
       {comments?.map((comment) => (
         <Comment
           key={comment?.id}
-          id={comment?.id!}
+          commentId={comment?.id!}
           author={comment?.user.username!}
           payload={comment?.payload!}
           isMine={comment?.isMine!}
