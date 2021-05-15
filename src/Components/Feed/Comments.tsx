@@ -71,14 +71,31 @@ export default function Comments({
               payload,
               user: { ...userData?.me },
             };
+            // newCacheComment : __ref: "Comment:53"
+            //cache 에 comment가 없다면 comment를 지울수 없기 때문에, cache에 comment를 저장하는 것이다.
+            const newCacheComment = cache.writeFragment({
+              data: newComment,
+              fragment: gql`
+                fragment BSName on Comment {
+                  id
+                  createdAt
+                  isMine
+                  payload
+                  user {
+                    username
+                    avatar
+                  }
+                }
+              `,
+            });
             cache.modify({
               //수정할 아이디 : photoId
               //혹여나 :를 붙이는것이 특히 주의해야함
               id: `Photo:${photoId}`,
-              //fields object안에 모든 프로퍼티는 fuc형태
+              //fields object안에 모든 프로퍼티는 fuction형태
               fields: {
                 comments(prev) {
-                  return [...prev, newComment];
+                  return [...prev, newCacheComment];
                 },
 
                 commentNumber(prev) {
