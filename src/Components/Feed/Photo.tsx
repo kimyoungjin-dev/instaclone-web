@@ -13,6 +13,7 @@ import {
   toggleLikeVariables,
 } from "../../__generated__/toggleLike";
 import Comments from "./Comments";
+import { Link } from "react-router-dom";
 
 const PhotoContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -116,8 +117,13 @@ export default function Photo({
   return (
     <PhotoContainer>
       <PhotoHeader>
-        <Avatar url={user.avatar || undefined} isLarge={false} />
-        <UserName>{user.username}</UserName>
+        <Link to={`users/${user.username}`}>
+          <Avatar url={user.avatar || undefined} isLarge={false} />
+        </Link>
+
+        <Link to={`users/${user.username}`}>
+          <UserName>{user.username}</UserName>
+        </Link>
       </PhotoHeader>
       <PhotoFile src={file} />
       <PhotoData>

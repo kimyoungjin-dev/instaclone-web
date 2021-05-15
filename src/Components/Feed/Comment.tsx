@@ -6,7 +6,6 @@ import {
   seeFeed_seeFeed,
   seeFeed_seeFeed_comments,
   seeFeed_seeFeed_comments_user,
-  seeFeed_seeFeed_user,
 } from "../../__generated__/seeFeed";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
@@ -81,7 +80,9 @@ export default function Comment({
 
   return (
     <CommentContainer>
-      <FatText>{author}</FatText>
+      <Link to={`users/${author}`}>
+        <FatText>{author}</FatText>
+      </Link>
       <CommentCaption>
         {payload?.split(" ").map((item, index) =>
           /#[\w]+/.test(item) ? (

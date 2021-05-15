@@ -81,7 +81,9 @@ export default function Header() {
               </Icon>
 
               <Icon>
-                <Avatar url={data?.me?.avatar || undefined} isLarge={false} />
+                <Link to={`/users/${data?.me?.username}`}>
+                  <Avatar url={data?.me?.avatar || undefined} isLarge={false} />
+                </Link>
               </Icon>
             </IconContainer>
           ) : (
