@@ -33,6 +33,7 @@ const CommentCount = styled.span`
 interface UpdatedProps
   extends Pick<seeFeed_seeFeed, "comments" | "commentNumber" | "caption"> {
   author: seeFeed_seeFeed_user["username"];
+  photoId: seeFeed_seeFeed["id"];
 }
 
 export default function Comments({
@@ -40,16 +41,33 @@ export default function Comments({
   commentNumber,
   comments,
   caption,
+  photoId,
 }: UpdatedProps) {
-  const [createComment] = useMutation(CREAT_COMMENT_MUTATION);
-  const { register, handleSubmit } = useForm();
+  const [createCommentMutation, { loading }] = useMutation(
+    CREAT_COMMENT_MUTATION
+  );
 
-  const onSubmit: SubmitHandler<createCommentVariables> = (data) =>
-    console.log(data);
+  const { register, handleSubmit, setValue } = useForm();
+
+  //loading? return //!loading :
+  const onSubmit: SubmitHandler<createCommentVariables> = (data) => {
+    const { payload } = data;
+    if (loading) {
+      return;
+    }
+    createCommentMutation({
+      variables: {
+        photoId,
+        payload,
+      },
+    });
+    //setValue를 이용해서 submit 이후에 input 을 지운다.
+    setValue("payload", "");
+  };
 
   return (
     <CommentsContainer>
-      <Comment author={author} payload={caption} />
+      <Comment author={author} payload={caption!} />
       <CommentCount>
         {commentNumber === 1 ? "1 Comment" : `${commentNumber} Comments`}
       </CommentCount>
