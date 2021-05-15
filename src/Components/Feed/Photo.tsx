@@ -79,7 +79,6 @@ export default function Photo({
   comments,
   commentNumber,
 }: seeFeed_seeFeed) {
-  const author = user.username;
   const [toggleLikeMutation, { loading }] = useMutation<
     toggleLike,
     toggleLikeVariables
