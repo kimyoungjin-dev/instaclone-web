@@ -14,7 +14,7 @@ import Form from "../Components/Auth/Box/Form";
 import Separator from "../Components/Auth/Separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import {
   createAccount,
@@ -23,8 +23,7 @@ import {
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import { useHistory } from "react-router-dom";
 import { CREATE_ACCOUNT_MUTATION } from "../Components/Auth/SignUp/SignUpMutation";
-import { IForm } from "../Components/Auth/SignUp/SignUpInterface";
-import { triggerAsyncId } from "node:async_hooks";
+import { SignUpProps } from "../Components/Auth/SignUp/SignUpInterface";
 
 export default function SignUp() {
   const {
@@ -35,7 +34,7 @@ export default function SignUp() {
     getValues,
     trigger,
     formState: { errors, isValid },
-  } = useForm<IForm>({
+  } = useForm<SignUpProps>({
     mode: "onChange",
   });
 
@@ -62,7 +61,7 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = (data: IForm) => {
+  const onSubmit: SubmitHandler<createAccountVariables> = (data) => {
     if (loading) {
       return;
     }
@@ -102,7 +101,7 @@ export default function SignUp() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("firstName", {
-              required: "성 은 필수 입력내용 입니다.",
+              required: "(성) 은 필수 입력내용 입니다.",
               validate: (): any => {
                 if (errors.createResultError) {
                   clearCreateError();
@@ -122,9 +121,9 @@ export default function SignUp() {
             {...register("email", {
               required: "이메일은 필수 입력내용 입니다.",
               minLength: {
-                value: 5,
+                value: 4,
                 message:
-                  "이메일 형식은@를 포함하고 5글자를 이상 이어야 합니다.",
+                  "이메일 형식은@를 포함하고 4글자를 이상 이어야 합니다.",
               },
               validate: (value): any => {
                 if (errors.createResultError) {
@@ -147,8 +146,8 @@ export default function SignUp() {
             {...register("username", {
               required: "닉네임은 필수 입력내용 입니다.",
               minLength: {
-                value: 1,
-                message: "아이디는 최소한 1글자 이상이어야 합니다.",
+                value: 4,
+                message: "아이디는 최소한 4글자 이상이어야 합니다.",
               },
             })}
             type="text"
