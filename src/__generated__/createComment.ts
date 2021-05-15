@@ -10,6 +10,7 @@
 export interface createComment_createComment {
   __typename: "MutationResponse";
   ok: boolean;
+  id: number | null;
   error: string | null;
 }
 
