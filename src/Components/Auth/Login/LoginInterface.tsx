@@ -1,11 +1,6 @@
-export interface LocationState {
-  message: string;
-  username: string;
-  password: string;
-}
+import { loginVariables } from "../../../__generated__/login";
 
-export interface IForm {
-  username: string;
-  password: string;
+export interface LoginInterFace extends loginVariables {
   resultError: string;
+  message: string;
 }
