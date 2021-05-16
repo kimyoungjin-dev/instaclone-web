@@ -3,6 +3,13 @@ import Photo from "../Components/Feed/Photo";
 import PageTitle from "../Components/PageTitle";
 import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../Fragments";
 import { seeFeed, seeFeedVariables } from "../__generated__/seeFeed";
+import styled from "styled-components";
+
+const Cotainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const FEED_QUERY = gql`
   query seeFeed($page: Int!) {
@@ -38,11 +45,13 @@ export default function Home() {
   });
 
   return (
-    <div>
-      <PageTitle title="Home" />
-      {data?.seeFeed?.map((photo) => (
-        <Photo key={photo?.id} {...photo!} />
-      ))}
-    </div>
+    <Cotainer>
+      <div>
+        <PageTitle title="Home" />
+        {data?.seeFeed?.map((photo) => (
+          <Photo key={photo?.id} {...photo!} />
+        ))}
+      </div>
+    </Cotainer>
   );
 }
