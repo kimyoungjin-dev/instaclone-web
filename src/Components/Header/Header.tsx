@@ -59,14 +59,19 @@ export default function Header() {
     <Container>
       <Wrapper>
         <Column>
-          <h1>Instaram</h1>
+          <Link to={routes.home}>
+            <h1>Instaram</h1>
+          </Link>
         </Column>
+
         <Column>
           {isLoggedIn ? (
             <IconContainer>
-              <Icon>
-                <AiFillHome />
-              </Icon>
+              <Link to={routes.home}>
+                <Icon>
+                  <AiFillHome />
+                </Icon>
+              </Link>
 
               <Icon>
                 <HiOutlinePaperAirplane />
