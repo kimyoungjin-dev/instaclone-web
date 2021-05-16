@@ -5,6 +5,13 @@ import { RiSunCloudyLine } from "react-icons/ri";
 import { GiMoonBats } from "react-icons/gi";
 import { darkModeClick, darkModeVar, whiteModeClick } from "./Apollo";
 
+const Div = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+`;
+
 const SDarkModeContainer = styled.div`
   display: flex;
   align-items: center;
@@ -26,11 +33,13 @@ export default function DarkModeContainer() {
   const darkMode = useReactiveVar(darkModeVar);
 
   return (
-    <SDarkModeContainer onClick={darkMode ? whiteModeClick : darkModeClick}>
-      <DarkModeText>{darkMode ? "White Mode" : "Dark Mode"}</DarkModeText>
-      <DarkModeBtn>
-        {darkMode ? <RiSunCloudyLine /> : <GiMoonBats />}
-      </DarkModeBtn>
-    </SDarkModeContainer>
+    <Div>
+      <SDarkModeContainer onClick={darkMode ? whiteModeClick : darkModeClick}>
+        <DarkModeText>{darkMode ? "White Mode" : "Dark Mode"}</DarkModeText>
+        <DarkModeBtn>
+          {darkMode ? <RiSunCloudyLine /> : <GiMoonBats />}
+        </DarkModeBtn>
+      </SDarkModeContainer>
+    </Div>
   );
 }
