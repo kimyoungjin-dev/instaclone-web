@@ -40,6 +40,7 @@ const CommentCaption = styled.span`
 
 const Button = styled.button`
   all: unset;
+  opacity: 0.9;
   color: gray;
   font-size: 13px;
   margin-left: 5px;
