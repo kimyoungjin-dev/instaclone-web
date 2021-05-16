@@ -23,8 +23,6 @@ import {
   Likes,
 } from "../../styles/StyledComponents/PhotoStyle";
 
-//comments
-
 export default function Photo({
   id,
   user,

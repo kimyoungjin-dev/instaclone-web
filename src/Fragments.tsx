@@ -25,6 +25,7 @@ export const COMMENT_FRAGMENT = gql`
 `;
 
 //home
+//this!
 export const FEED_QUERY = gql`
   query seeFeed($page: Int!) {
     seeFeed(page: $page) {
