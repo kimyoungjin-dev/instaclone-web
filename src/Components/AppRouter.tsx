@@ -31,7 +31,9 @@ export default function AppRouter() {
         ) : null}
 
         <Route path={`/users/:username`}>
-          <Profile />
+          <HeaderLayOut>
+            <Profile />
+          </HeaderLayOut>
         </Route>
 
         <Route>
