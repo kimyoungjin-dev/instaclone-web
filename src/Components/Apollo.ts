@@ -25,9 +25,15 @@ const httpLink = createHttpLink({
 });
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
   //authLink와 httlLink를 하나로 묶는다.
   link: authLink.concat(httpLink),
+  cache: new InMemoryCache({
+    typePolicies: {
+      User: {
+        keyFields: (obj) => `User${obj.username}`,
+      },
+    },
+  }),
 });
 
 //isLoggedInVar
