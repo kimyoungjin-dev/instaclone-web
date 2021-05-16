@@ -18,7 +18,13 @@ const DELETE_COMMENT_MUTATION = gql`
   }
 `;
 
-const CommentContainer = styled.div``;
+const CommentContainer = styled.div`
+  display: flex;
+  align-items: center;
+  :not(:first-child) {
+    margin-bottom: 10px;
+  }
+`;
 
 const CommentCaption = styled.span`
   margin-left: 10px;
@@ -30,6 +36,14 @@ const CommentCaption = styled.span`
       text-decoration: underline;
     }
   }
+`;
+
+const Button = styled.button`
+  all: unset;
+  color: gray;
+  font-size: 13px;
+  margin-left: 5px;
+  cursor: pointer;
 `;
 
 interface UpdatedProps {
@@ -94,7 +108,7 @@ export default function Comment({
           )
         )}
       </CommentCaption>
-      {isMine ? <button onClick={onDeleteClick}>삭제</button> : null}
+      {isMine ? <Button onClick={onDeleteClick}>삭제</Button> : null}
     </CommentContainer>
   );
 }
