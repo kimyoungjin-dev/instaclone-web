@@ -20,7 +20,9 @@ export default function AppRouter() {
               <Home />
             </HeaderLayOut>
           ) : (
-            <Login />
+            <HeaderLayOut>
+              <Login />
+            </HeaderLayOut>
           )}
         </Route>
 
@@ -30,11 +32,19 @@ export default function AppRouter() {
           </Route>
         ) : null}
 
-        <Route path={`/users/:username`}>
-          <HeaderLayOut>
-            <Profile />
-          </HeaderLayOut>
-        </Route>
+        {isLoggedIn ? (
+          <Route path={`/users/:username`}>
+            <HeaderLayOut>
+              <Profile />
+            </HeaderLayOut>
+          </Route>
+        ) : (
+          <Route path={routes.home}>
+            <HeaderLayOut>
+              <Home />
+            </HeaderLayOut>
+          </Route>
+        )}
 
         <Route>
           <NotFound />
