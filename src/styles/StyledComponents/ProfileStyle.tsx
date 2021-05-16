@@ -107,4 +107,5 @@ export const EditBtn = styled(Button)`
   margin-left: 5px;
   padding: 3px;
   font-size: 12px;
+  cursor: pointer;
 `;
