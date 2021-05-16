@@ -38,6 +38,17 @@ export const UserName = styled.span`
   font-size: 20px;
 `;
 
+//LogOutButton
+export const LogOutButton = styled.span`
+  margin-left: 5px;
+  font-size: 10px;
+  opacity: 0.6;
+  background-color: black;
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+`;
+
 export const FollowBox = styled.div`
   display: flex;
 `;
