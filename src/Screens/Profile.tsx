@@ -31,6 +31,7 @@ import {
   Wrapper,
   Photo,
   Subtitle,
+  LogOutButton,
 } from "../styles/StyledComponents/ProfileStyle";
 import useUser from "../Components/Hooks/useUser";
 import {
@@ -38,6 +39,8 @@ import {
   unfollowUserVariables,
 } from "../__generated__/unfollowUser";
 import { followUser, followUserVariables } from "../__generated__/followUser";
+import { logUserOut } from "../Components/Apollo";
+import routes from "../routes";
 
 export default function Profile() {
   const { username } = useParams<seeProfileVariables>();
@@ -154,7 +157,6 @@ export default function Profile() {
           loading ? "Loading..." : `${data?.seeProfile?.username}'s Profile`
         }
       />
-
       <Wrapper>
         <DarkModeContainer />
 
@@ -165,11 +167,12 @@ export default function Profile() {
               <UserName>{data?.seeProfile?.username}</UserName>
               {data?.seeProfile ? checkFn(data.seeProfile) : null}
 
+              <LogOutButton onClick={logUserOut}>로그아웃</LogOutButton>
+
               <FollowBox>
                 <Follow>{data?.seeProfile?.totalFollowers} Followers</Follow>
                 <Follow>{data?.seeProfile?.totalFollowing} Following</Follow>
               </FollowBox>
-
               <Maintitle>{data?.seeProfile?.username} Should Work!</Maintitle>
               <Subtitle>Super Exciting!</Subtitle>
             </InfoMationBox>
