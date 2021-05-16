@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import {
   SEE_PROFILE_QUERY,
@@ -41,16 +41,13 @@ import { followUser, followUserVariables } from "../__generated__/followUser";
 
 export default function Profile() {
   const { username } = useParams<seeProfileVariables>();
-  const { data, loading } = useQuery<seeProfile, seeProfileVariables>(
-    SEE_PROFILE_QUERY,
-    {
-      variables: {
-        username,
-      },
-    }
-  );
-
-  //간접적으로 "cache" 수정방법: Mutation 완료 => query를 다시 받아온 후 => 해당 query를 재사용 한다.
+  const { data: userData } = useUser();
+  const client = useApolloClient();
+  const { data, loading } = useQuery<seeProfile>(SEE_PROFILE_QUERY, {
+    variables: {
+      username,
+    },
+  });
 
   const [unfollowUser] = useMutation<unfollowUser, unfollowUserVariables>(
     UNFOLLOW_USER_MUTATION,
@@ -58,7 +55,6 @@ export default function Profile() {
       variables: {
         username,
       },
-
       update: (cache, result) => {
         if (result.data?.unfollowUser.ok) {
           const {
@@ -66,9 +62,13 @@ export default function Profile() {
               unfollowUser: { ok },
             },
           } = result;
-          if (!ok) return;
+
+          if (!ok) {
+            return;
+          }
+
           cache.modify({
-            id: `User${username}`,
+            id: `User:${username}`,
             fields: {
               isFollowing(prev) {
                 return false;
@@ -78,32 +78,56 @@ export default function Profile() {
               },
             },
           });
+          if (userData?.me) {
+            const { me } = userData;
+            cache.modify({
+              id: `User:${me.username}`,
+              fields: {
+                totalFollowing(prev) {
+                  return prev - 1;
+                },
+              },
+            });
+          }
         }
       },
     }
   );
-
+  //followUser
+  //followUser
   const [followUser] = useMutation<followUser, followUserVariables>(
     FOLLOW_USER_MUTATION,
     {
       variables: {
         username,
       },
-      update: (cache, result) => {
-        if (result.data?.followUser.ok) {
-          const {
-            data: {
-              followUser: { ok },
+      onCompleted: (data) => {
+        const {
+          followUser: { ok },
+        } = data;
+
+        if (!ok) {
+          return;
+        }
+
+        const { cache } = client;
+        cache.modify({
+          id: `User:${username}`,
+          fields: {
+            isFollowing(prev) {
+              return true;
             },
-          } = result;
-          if (!ok) return;
+            totalFollowers(prev) {
+              return prev + 1;
+            },
+          },
+        });
+        if (userData?.me) {
+          const { me } = userData;
           cache.modify({
-            id: `User${username}`,
+            id: `User:${me.username}`,
             fields: {
-              isFollowing(prev) {
-                return true;
-              },
-              totalFollowers(prev) {
+              totalFollowing(prev) {
                 return prev + 1;
               },
             },
