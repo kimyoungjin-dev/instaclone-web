@@ -1,6 +1,10 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
-import { SEE_PROFILE_QUERY } from "../Fragments";
+import {
+  SEE_PROFILE_QUERY,
+  UNFOLLOW_USER_MUTATION,
+  FOLLOW_USER_MUTATION,
+} from "../Fragments";
 import {
   seeProfile,
   seeProfileVariables,
@@ -28,9 +32,15 @@ import {
   Photo,
   Subtitle,
 } from "../styles/StyledComponents/ProfileStyle";
+import useUser from "../Components/Hooks/useUser";
+import {
+  unfollowUser,
+  unfollowUserVariables,
+} from "../__generated__/unfollowUser";
+import { followUser, followUserVariables } from "../__generated__/followUser";
 
 export default function Profile() {
-  const { username } = useParams<seeProfileVariables>(); //{username:youngjin}
+  const { username } = useParams<seeProfileVariables>();
   const { data, loading } = useQuery<seeProfile, seeProfileVariables>(
     SEE_PROFILE_QUERY,
     {
@@ -40,12 +50,76 @@ export default function Profile() {
     }
   );
 
+  //간접적으로 "cache" 수정방법: Mutation 완료 => query를 다시 받아온 후 => 해당 query를 재사용 한다.
+
+  const [unfollowUser] = useMutation<unfollowUser, unfollowUserVariables>(
+    UNFOLLOW_USER_MUTATION,
+    {
+      variables: {
+        username,
+      },
+
+      update: (cache, result) => {
+        if (result.data?.unfollowUser.ok) {
+          const {
+            data: {
+              unfollowUser: { ok },
+            },
+          } = result;
+          if (!ok) return;
+          cache.modify({
+            id: `User${username}`,
+            fields: {
+              isFollowing(prev) {
+                return false;
+              },
+              totalFollowers(prev) {
+                return prev - 1;
+              },
+            },
+          });
+        }
+      },
+    }
+  );
+
+  const [followUser] = useMutation<followUser, followUserVariables>(
+    FOLLOW_USER_MUTATION,
+    {
+      variables: {
+        username,
+      },
+      update: (cache, result) => {
+        if (result.data?.followUser.ok) {
+          const {
+            data: {
+              followUser: { ok },
+            },
+          } = result;
+          if (!ok) return;
+          cache.modify({
+            id: `User${username}`,
+            fields: {
+              isFollowing(prev) {
+                return true;
+              },
+              totalFollowers(prev) {
+                return prev + 1;
+              },
+            },
+          });
+        }
+      },
+    }
+  );
+
   const checkFn = (seeProfile: seeProfile_seeProfile) => {
     const { isMe, isFollowing } = seeProfile;
     if (isMe) return <EditBtn>Edit Profile</EditBtn>;
-    if (isFollowing) return <EditBtn>UnFollwing</EditBtn>;
+    if (isFollowing)
+      return <EditBtn onClick={() => unfollowUser()}>UnFollwing</EditBtn>;
     else {
-      return <EditBtn>Follow</EditBtn>;
+      return <EditBtn onClick={() => followUser()}>Follow</EditBtn>;
     }
   };
 
