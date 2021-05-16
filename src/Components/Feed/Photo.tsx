@@ -1,72 +1,27 @@
-import gql from "graphql-tag";
 import { ApolloCache, useMutation } from "@apollo/client";
-import { seeFeed, seeFeed_seeFeed } from "../../__generated__/seeFeed";
-import styled from "styled-components";
+import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import Avatar from "../Avatar";
 import { BsBookmark } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import { BiMessageRounded } from "react-icons/bi";
-import { FatText } from "../SharedStyles";
 import {
   toggleLike,
   toggleLikeVariables,
 } from "../../__generated__/toggleLike";
 import Comments from "./Comments";
 import { Link } from "react-router-dom";
-
-const PhotoContainer = styled.div`
-  border: 1px solid ${(props) => props.theme.borderColor};
-  margin-bottom: 20px;
-  max-width: 615px;
-`;
-
-const PhotoHeader = styled.div`
-  padding: 15px 10px;
-  display: flex;
-  align-items: center;
-`;
-
-const UserName = styled(FatText)`
-  margin-left: 10px;
-`;
-
-const PhotoFile = styled.img`
-  width: 100%;
-`;
-
-const PhotoData = styled.div`
-  padding: 15px;
-`;
-
-const PhotoActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  div {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const PhotoAction = styled.div`
-  margin-right: 10px;
-  cursor: pointer;
-`;
-
-const Likes = styled(FatText)`
-  display: block;
-  margin-top: 10px;
-`;
-
-const TOGGLE_LIKE_MUTATION = gql`
-  mutation toggleLike($id: Int!) {
-    toggleLike(id: $id) {
-      ok
-      error
-    }
-  }
-`;
+import { TOGGLE_LIKE_MUTATION } from "../../Fragments";
+import {
+  PhotoContainer,
+  PhotoHeader,
+  UserName,
+  PhotoFile,
+  PhotoData,
+  PhotoActions,
+  PhotoAction,
+  Likes,
+} from "../../styles/StyledComponents/PhotoStyle";
 
 //comments
 

@@ -7,16 +7,8 @@ import {
   seeFeed_seeFeed_comments,
   seeFeed_seeFeed_comments_user,
 } from "../../__generated__/seeFeed";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
-
-const DELETE_COMMENT_MUTATION = gql`
-  mutation deleteComment($id: Int!) {
-    deleteComment(id: $id) {
-      ok
-    }
-  }
-`;
+import { DELETE_COMMENT_MUTATION } from "../../Fragments";
 
 const CommentContainer = styled.div`
   display: flex;

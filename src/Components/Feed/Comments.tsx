@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
+import { CREAT_COMMENT_MUTATION } from "../../Fragments";
 import { createCommentVariables } from "../../__generated__/createComment";
 import {
   seeFeed_seeFeed,
@@ -9,16 +10,6 @@ import {
 } from "../../__generated__/seeFeed";
 import useUser from "../Hooks/useUser";
 import Comment from "./Comment";
-
-const CREAT_COMMENT_MUTATION = gql`
-  mutation createComment($photoId: Int!, $payload: String!) {
-    createComment(photoId: $photoId, payload: $payload) {
-      ok
-      id
-      error
-    }
-  }
-`;
 
 const CommentsContainer = styled.div`
   margin-top: 20px;
