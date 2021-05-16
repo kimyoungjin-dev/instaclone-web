@@ -4,6 +4,7 @@ import PageTitle from "../Components/PageTitle";
 import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../Fragments";
 import { seeFeed, seeFeedVariables } from "../__generated__/seeFeed";
 import styled from "styled-components";
+import DarkModeContainer from "../Components/DarkModeContainer";
 
 const Cotainer = styled.div`
   display: flex;
@@ -47,6 +48,8 @@ export default function Home() {
   return (
     <Cotainer>
       <div>
+        <DarkModeContainer />
+
         <PageTitle title="Home" />
         {data?.seeFeed?.map((photo) => (
           <Photo key={photo?.id} {...photo!} />
