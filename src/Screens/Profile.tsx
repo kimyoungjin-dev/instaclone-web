@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import { useParams } from "react-router";
+import { PHOTO_FRAGMENT } from "../Fragments";
+import { seeProfile, seeProfileVariables } from "../__generated__/seeProfile";
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -11,23 +13,30 @@ const SEE_PROFILE_QUERY = gql`
       bio
       avatar
       photos {
-        id
-        file
-        likes
-        commentNumber
-        isLiked
+        ...PhotoFragment
       }
+
       totalFollowing
       totalFollowers
       isMe
       isFollowing
     }
   }
+  ${PHOTO_FRAGMENT}
 `;
 
 export default function Profile() {
-  const params = useParams();
-  const { data } = useQuery(SEE_PROFILE_QUERY);
+  const { username } = useParams<seeProfileVariables>(); //{username:youngjin}
+  const { data } = useQuery<seeProfile, seeProfileVariables>(
+    SEE_PROFILE_QUERY,
+    {
+      variables: {
+        username,
+      },
+    }
+  );
+
+  console.log(data);
 
   return <div>Profile</div>;
 }

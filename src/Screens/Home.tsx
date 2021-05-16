@@ -1,11 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
 import Photo from "../Components/Feed/Photo";
 import PageTitle from "../Components/PageTitle";
+import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../Fragments";
 import { seeFeed, seeFeedVariables } from "../__generated__/seeFeed";
 
 const FEED_QUERY = gql`
   query seeFeed($page: Int!) {
     seeFeed(page: $page) {
+      ...PhotoFragment
       id
       user {
         username
@@ -16,20 +18,15 @@ const FEED_QUERY = gql`
       likes
       commentNumber
       comments {
-        id
-        user {
-          username
-          avatar
-        }
-        payload
-        isMine
-        createdAt
+        ...CommentFragment
       }
       createdAt
       isMine
       isLiked
     }
   }
+  ${COMMENT_FRAGMENT}
+  ${PHOTO_FRAGMENT}
 `;
 
 //seeFeed 외에 변수가 있는경우에만 <seeFeed , "">추가로 써준다.
