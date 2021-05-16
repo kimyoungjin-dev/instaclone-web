@@ -41,13 +41,13 @@ export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)));
 //login
 export const logUserIn = (token: string) => {
   localStorage.setItem(TOKEN, token);
+  window.location.reload();
   isLoggedInVar(true);
 };
 
 //logOut
 export const logUserOut = () => {
   localStorage.removeItem(TOKEN);
-  isLoggedInVar(false);
   window.location.reload();
 };
 
