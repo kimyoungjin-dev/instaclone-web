@@ -12,6 +12,7 @@ import Avatar from "../Avatar";
 import { TOGGLE_LIKE_MUTATION } from "../Fragment";
 import Likes from "../Likes/Likes";
 import { FatText } from "../SharedStyles";
+import Comments from "./Comments";
 
 const PhotoCotainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -71,10 +72,26 @@ const ToggleLikeBtn = styled.span`
 
 type PhotoPick = Pick<
   seeFeed_seeFeed,
-  "id" | "user" | "likes" | "file" | "isLiked"
+  | "id"
+  | "user"
+  | "likes"
+  | "file"
+  | "isLiked"
+  | "comments"
+  | "commentNumber"
+  | "caption"
 >;
 
-export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
+export default function Photo({
+  id,
+  user,
+  likes,
+  file,
+  isLiked,
+  comments,
+  commentNumber,
+  caption,
+}: PhotoPick) {
   const [toggle_like_mutation] = useMutation<toggleLike, toggleLikeVariables>(
     TOGGLE_LIKE_MUTATION,
     {
@@ -160,6 +177,13 @@ export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
         </PhotoAction>
 
         <Likes photoId={id} likes={likes} />
+
+        <Comments
+          author={user.username}
+          caption={caption}
+          commentNumber={commentNumber}
+          comments={comments}
+        />
       </PhotoData>
     </PhotoCotainer>
   );
