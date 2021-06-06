@@ -1,5 +1,5 @@
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import { client, darkModeVar, isLoggedInVar } from "./Apollo";
+import { client, darkModeVar } from "./Apollo";
 import AppRouter from "./AppRouter";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles, light, dark } from "../styles/styles";

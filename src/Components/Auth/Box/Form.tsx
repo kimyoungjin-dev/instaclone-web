@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Form = styled.form`
+export const Form = styled.form`
   margin-top: 15px;
   width: 100%;
   display: flex;
@@ -8,5 +8,3 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-
-export default Form;

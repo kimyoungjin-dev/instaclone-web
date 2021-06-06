@@ -10,7 +10,7 @@ const Button = styled.button`
   padding: 8px 0px;
   font-weight: 600;
   width: 100%;
-  opacity: ${(props) => (props.disabled ? 0.3 : 1)};
+  opacity: ${(props) => (props.disabled ? 0.4 : 1)};
   border-radius: 2px;
   transition: 0.8s ease-in-out;
   cursor: pointer;

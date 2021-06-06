@@ -4,9 +4,13 @@ import { isLoggedInVar } from "../Apollo";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
 import useUser from "../Hooks/useUser";
-import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
+import {
+  AiFillHome,
+  AiOutlineCompass,
+  AiOutlineHeart,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
-import Avatar from "../Avatar";
 
 const Container = styled.div`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
@@ -29,6 +33,7 @@ const Column = styled.div`
   h1 {
     font-size: 25px;
     font-family: "Caveat Brush", cursive;
+    cursor: pointer;
   }
 `;
 
@@ -44,6 +49,7 @@ const Button = styled.span`
 const Icon = styled.span`
   margin-left: 25px;
   font-size: 20px;
+  cursor: pointer;
 `;
 
 const IconContainer = styled.div`
@@ -86,9 +92,7 @@ export default function Header() {
               </Icon>
 
               <Icon>
-                <Link to={`/users/${data?.me?.username}`}>
-                  <Avatar url={data?.me?.avatar || undefined} isLarge={false} />
-                </Link>
+                <AiOutlineUser />
               </Icon>
             </IconContainer>
           ) : (

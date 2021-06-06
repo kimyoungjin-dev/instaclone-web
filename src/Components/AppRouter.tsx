@@ -4,7 +4,6 @@ import routes from "../routes";
 import Home from "../Screens/Home";
 import Login from "../Screens/Login";
 import NotFound from "../Screens/NotFound";
-import Profile from "../Screens/Profile";
 import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
 import HeaderLayOut from "./Header/HeaderLayOut";
@@ -20,9 +19,7 @@ export default function AppRouter() {
               <Home />
             </HeaderLayOut>
           ) : (
-            <HeaderLayOut>
-              <Login />
-            </HeaderLayOut>
+            <Login />
           )}
         </Route>
 
@@ -31,20 +28,6 @@ export default function AppRouter() {
             <SignUp />
           </Route>
         ) : null}
-
-        {isLoggedIn ? (
-          <Route path={`/users/:username`}>
-            <HeaderLayOut>
-              <Profile />
-            </HeaderLayOut>
-          </Route>
-        ) : (
-          <Route path={routes.home}>
-            <HeaderLayOut>
-              <Home />
-            </HeaderLayOut>
-          </Route>
-        )}
 
         <Route>
           <NotFound />

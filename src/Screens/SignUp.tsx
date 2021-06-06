@@ -10,7 +10,7 @@ import Input from "../Components/Auth/Box/Input";
 import SubmitButton from "../Components/Auth/Box/SubmitButton";
 import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
-import Form from "../Components/Auth/Box/Form";
+import { Form } from "../Components/Auth/Box/Form";
 import Separator from "../Components/Auth/Separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
@@ -22,8 +22,8 @@ import {
 } from "../__generated__/createAccount";
 import ErrorMessage from "../Components/Auth/ErrorMessage";
 import { useHistory } from "react-router-dom";
-import { CREATE_ACCOUNT_MUTATION } from "../Components/Auth/SignUp/SignUpMutation";
-import { SignUpProps } from "../Components/Auth/SignUp/SignUpInterface";
+import { CREATE_ACCOUNT_MUTATION } from "../Components/Fragment";
+import { SignUpProps } from "../Components/interface";
 
 export default function SignUp() {
   const {
@@ -49,11 +49,11 @@ export default function SignUp() {
         createAccount: { ok, error },
       } = data;
       if (!ok) {
-        return setError("createResultError", {
+        setError("createResultError", {
           message: error || undefined,
         });
       }
-      return history.push(routes.home, {
+      history.push(routes.home, {
         message: "계정이 생성되었습니다. 로그인을 해주세요",
         username,
         password,
@@ -70,10 +70,6 @@ export default function SignUp() {
         ...data,
       },
     });
-  };
-
-  const clearCreateError = () => {
-    clearErrors("createResultError");
   };
 
   return (
@@ -102,12 +98,6 @@ export default function SignUp() {
           <Input
             {...register("firstName", {
               required: "(성) 은 필수 입력내용 입니다.",
-              validate: (): any => {
-                if (errors.createResultError) {
-                  clearCreateError();
-                  trigger();
-                }
-              },
             })}
             type="text"
             placeholder="성"
@@ -120,52 +110,46 @@ export default function SignUp() {
           <Input
             {...register("email", {
               required: "이메일은 필수 입력내용 입니다.",
-              minLength: {
-                value: 4,
-                message:
-                  "이메일 형식은@를 포함하고 4글자를 이상 이어야 합니다.",
-              },
-              validate: (value): any => {
-                if (errors.createResultError) {
-                  clearCreateError();
-                  trigger();
-                }
-                return value.includes("@");
-              },
             })}
-            type="text"
+            type="email"
             placeholder="Email"
             hasError={Boolean(errors?.email?.message)}
           />
-          {errors?.email?.type === "validate" && (
-            <ErrorMessage message="이메일 형식은 @를 포함해야 합니다." />
-          )}
           <ErrorMessage message={errors?.email?.message} />
 
           <Input
             {...register("username", {
-              required: "닉네임은 필수 입력내용 입니다.",
+              required: "닉네임은 필수 사항 입니다.",
+              validate: (): any => {
+                if (errors.createResultError) {
+                  clearErrors("createResultError");
+                  trigger();
+                }
+              },
               minLength: {
                 value: 4,
                 message: "아이디는 최소한 4글자 이상이어야 합니다.",
               },
             })}
             type="text"
-            placeholder="닉네임"
+            placeholder="User Name"
             hasError={Boolean(errors?.username?.message)}
           />
           <ErrorMessage message={errors?.username?.message} />
 
           <Input
             {...register("password", {
-              required: "비밀번호는 필수 입력내용 입니다.",
+              required: "비밀번호는 필수 입력사항 입니다.",
+              validate: (): any => {
+                if (errors.createResultError) {
+                  clearErrors("createResultError");
+                  trigger();
+                }
+              },
+
               minLength: {
                 value: 4,
-                message: "비밀번호는 4글자 이상 15글자 미만이어야 합니다.",
-              },
-              maxLength: {
-                value: 15,
-                message: "비밀번호는 4글자 이상 15글자 미만이어야 합니다.",
+                message: "비밀번호는 4글자 이상 이어야 합니다.",
               },
             })}
             type="password"
@@ -179,12 +163,14 @@ export default function SignUp() {
           </SubmitButton>
           <ErrorMessage message={errors?.createResultError?.message} />
         </Form>
+
         <AgreeText>
           가입하면 Instagram의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.
         </AgreeText>
       </TopBox>
+
       <BottomBox
-        text="계정이 존재합니까?"
+        text="계정이 이미 존재하시나요?"
         linkText="로그인"
         link={routes.home}
       />

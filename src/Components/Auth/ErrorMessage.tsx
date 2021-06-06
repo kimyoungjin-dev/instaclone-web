@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface IProps {
-  message?: string;
-}
+import { MessageProps } from "../interface";
 
 const Message = styled.span`
   color: red;
@@ -10,6 +7,6 @@ const Message = styled.span`
   margin: 5px 0px;
 `;
 
-export default function ErrorMessage({ message }: IProps) {
+export default function ErrorMessage({ message }: MessageProps) {
   return message === "" || !message ? null : <Message>{message}</Message>;
 }
