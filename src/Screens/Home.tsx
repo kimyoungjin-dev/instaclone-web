@@ -23,7 +23,7 @@ export default function Home() {
       offset: 0,
     },
   });
-  console.log(data);
+
   return (
     <Box>
       {data?.seeFeed?.map((photo) => (
