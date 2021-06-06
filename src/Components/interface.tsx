@@ -18,3 +18,7 @@ export interface LoginInterFace extends loginVariables {
 export interface SignUpProps extends createAccountVariables {
   createResultError: string;
 }
+
+export interface ImageProps {
+  url: string | undefined;
+}

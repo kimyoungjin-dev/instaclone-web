@@ -11,6 +11,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
+import Avatar from "../Avatar";
 
 const Container = styled.div`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
@@ -60,6 +61,7 @@ const IconContainer = styled.div`
 export default function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data } = useUser();
+  console.log(data);
 
   return (
     <Container>
@@ -92,7 +94,7 @@ export default function Header() {
               </Icon>
 
               <Icon>
-                <AiOutlineUser />
+                <Avatar url={data?.me?.avatar || undefined} />
               </Icon>
             </IconContainer>
           ) : (
