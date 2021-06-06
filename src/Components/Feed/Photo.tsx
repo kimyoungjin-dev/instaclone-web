@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { AiFillHeart, AiOutlineHeart, AiTwotoneMessage } from "react-icons/ai";
 import { BsBookmark, BsThreeDots } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
@@ -80,6 +80,28 @@ export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
     {
       variables: {
         id,
+      },
+      update: (cache, result) => {
+        if (result.data?.toggleLike.ok) {
+          const {
+            data: {
+              toggleLike: { ok },
+            },
+          } = result;
+          if (ok) {
+            cache.writeFragment({
+              id: `Photo:${id}`,
+              fragment: gql`
+                fragment isLikeFragment on Photo {
+                  isLiked
+                }
+              `,
+              data: {
+                isLiked: !isLiked,
+              },
+            });
+          }
+        }
       },
     }
   );
