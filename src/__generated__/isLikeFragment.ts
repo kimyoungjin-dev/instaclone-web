@@ -10,4 +10,5 @@
 export interface isLikeFragment {
   __typename: "Photo";
   isLiked: boolean;
+  likes: number;
 }
