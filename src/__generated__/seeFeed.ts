@@ -28,6 +28,7 @@ export interface seeFeed_seeFeed {
   comments: (seeFeed_seeFeed_comments | null)[] | null;
   createdAt: string;
   isMine: boolean;
+  isLiked: boolean;
 }
 
 export interface seeFeed {
