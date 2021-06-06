@@ -89,17 +89,32 @@ export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
             },
           } = result;
           if (ok) {
-            cache.writeFragment({
-              id: `Photo:${id}`,
-              fragment: gql`
-                fragment isLikeFragment on Photo {
-                  isLiked
-                }
-              `,
-              data: {
-                isLiked: !isLiked,
-              },
+            const fragmentId = `Photo:${id}`;
+            const fragment = gql`
+              fragment isLikeFragment on Photo {
+                isLiked
+                likes
+              }
+            `;
+
+            //readFragment
+            const result: any = cache.readFragment({
+              id: fragmentId,
+              fragment,
             });
+
+            //writeFragment
+            if ("isLiked" in result && "likes" in result) {
+              const { isLiked: cacheIsLiked, likes: cacheLikes } = result;
+              cache.writeFragment({
+                id: fragmentId,
+                fragment,
+                data: {
+                  isLiked: !cacheIsLiked,
+                  likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+                },
+              });
+            }
           }
         }
       },
