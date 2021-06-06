@@ -40,3 +40,23 @@ export const ME_QUERY = gql`
     }
   }
 `;
+
+export const FEED_QUERY = gql`
+  query seeFeed($offset: Int!) {
+    seeFeed(offset: $offset) {
+      id
+      user {
+        username
+        avatar
+      }
+      file
+      caption
+      likes
+      comments {
+        id
+      }
+      createdAt
+      isMine
+    }
+  }
+`;
