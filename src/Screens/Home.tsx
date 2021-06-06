@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { useQuery } from "@apollo/client";
-import { FEED_QUERY } from "../Components/Fragment";
+import { FEED_QUERY, SEE_PHOTO_LIKES } from "../Components/Fragment";
 import Avatar from "../Components/Avatar";
 import { seeFeed } from "../__generated__/seeFeed";
 import { FatText } from "../Components/SharedStyles";
 import { AiOutlineHeart, AiTwotoneMessage } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import { BsBookmark, BsThreeDots } from "react-icons/bs";
+import Likes from "../Components/Likes/Likes";
 
 const Box = styled.div`
   display: flex;
@@ -18,6 +19,8 @@ const Box = styled.div`
 const PhotoCotainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   width: 700px;
+  border-radius: 8px;
+  margin-bottom: 25px;
 `;
 
 const PhotoHeader = styled.div`
@@ -108,7 +111,7 @@ export default function Home() {
               </ActionColumn>
             </PhotoAction>
 
-            <PhotoLikes>Like {photo?.likes}</PhotoLikes>
+            <Likes photoId={photo?.id!} likes={photo?.likes!} />
           </PhotoData>
         </PhotoCotainer>
       ))}

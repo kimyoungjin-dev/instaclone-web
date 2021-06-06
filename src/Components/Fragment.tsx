@@ -57,6 +57,17 @@ export const FEED_QUERY = gql`
       }
       createdAt
       isMine
+      isLiked
+    }
+  }
+`;
+
+export const SEE_PHOTO_LIKES = gql`
+  query seePhotoLikes($id: Int!) {
+    seePhotoLikes(id: $id) {
+      id
+      username
+      avatar
     }
   }
 `;
