@@ -32,8 +32,8 @@ export default function Login() {
   } = useForm<LoginInterFace>({
     mode: "onChange",
     defaultValues: {
-      username: location.state.username || "",
-      password: location.state.password || "",
+      username: location?.state?.username || "",
+      password: location?.state?.password || "",
     },
   });
 

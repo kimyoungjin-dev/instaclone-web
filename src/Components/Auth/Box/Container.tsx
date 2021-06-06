@@ -18,7 +18,9 @@ const Wrapper = styled.div`
 export default function Container({ children }: ChilrenProps) {
   return (
     <SContainer>
-      <DarkModeBox />
+      <div>
+        <DarkModeBox />
+      </div>
       <Wrapper>{children}</Wrapper>
     </SContainer>
   );
