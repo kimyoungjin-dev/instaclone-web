@@ -52,8 +52,16 @@ export const FEED_QUERY = gql`
       file
       caption
       likes
+      commentNumber
       comments {
         id
+        user {
+          username
+          avatar
+        }
+        payload
+        isMine
+        createdAt
       }
       createdAt
       isMine
