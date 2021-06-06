@@ -13,18 +13,18 @@ interface PhotoPick {
   likes: seeFeed_seeFeed["likes"];
 }
 
-const LikeContainer = styled.div`
+const LikeBox = styled.div`
   display: flex;
   align-items: center;
 `;
 
 const LikeUser = styled.span`
   display: block;
-  margin-left: 8px;
+  margin: 0px 7px;
   font-size: 12px;
 `;
 
-const LikeImpect = styled.span`
+const LikeColor = styled.span`
   color: tomato;
 `;
 
@@ -40,16 +40,24 @@ export default function Likes({ photoId, likes }: PhotoPick) {
   return (
     <div>
       {data?.seePhotoLikes?.map((like, index) => (
-        <div>
-          {index === 0 ? (
-            <LikeContainer>
+        <div key={like?.id}>
+          {likes === 1 ? (
+            <LikeBox>
               <Avatar url={like?.avatar || undefined} />
-              <LikeUser>
-                {like?.username}님 외에 <LikeImpect>{likes - 1}</LikeImpect>명이
-                좋아요를 눌렀습니다
-              </LikeUser>
-            </LikeContainer>
-          ) : null}
+              <LikeUser>{like?.username}</LikeUser>
+              <LikeColor style={{ marginRight: 5 }}>1</LikeColor> Like
+            </LikeBox>
+          ) : (
+            index === 0 && (
+              <LikeBox style={{ display: "flex", alignItems: "center" }}>
+                <Avatar url={like?.avatar || undefined} />
+                <div style={{ marginLeft: 10 }}>
+                  {like?.username}님 외에 <LikeColor>{likes - 1}</LikeColor>
+                  명이 좋아요를 눌렀습니다.
+                </div>
+              </LikeBox>
+            )
+          )}
         </div>
       ))}
     </div>
