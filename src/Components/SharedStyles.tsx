@@ -14,3 +14,7 @@ export const SilverText = styled.span`
 export const FatText = styled.span`
   font-weight: 600;
 `;
+
+export const NumberColor = styled.span`
+  color: tomato;
+`;
