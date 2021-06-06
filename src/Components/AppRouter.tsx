@@ -6,6 +6,7 @@ import Login from "../Screens/Login";
 import NotFound from "../Screens/NotFound";
 import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
+import Hashtag from "./Feed/Hashtag";
 import HeaderLayOut from "./Header/HeaderLayOut";
 
 export default function AppRouter() {
@@ -28,6 +29,10 @@ export default function AppRouter() {
             <SignUp />
           </Route>
         ) : null}
+
+        <Route path={routes.Hashtag}>
+          <Hashtag />
+        </Route>
 
         <Route>
           <NotFound />

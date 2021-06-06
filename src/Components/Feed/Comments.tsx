@@ -3,18 +3,16 @@ import {
   seeFeed_seeFeed,
   seeFeed_seeFeed_user,
 } from "../../__generated__/seeFeed";
-import { FatText, NumberColor } from "../SharedStyles";
+import { NumberColor } from "../SharedStyles";
+import Comment from "./Comment";
 
 const Container = styled.div`
   margin-top: 10px;
 `;
 
-const Comment = styled.div`
-  margin-bottom: 15px;
-`;
-
-const CommentCaption = styled.span`
-  margin-left: 10px;
+const CommentTotal = styled.span`
+  display: block;
+  margin-bottom: 10px;
 `;
 
 interface NewComments {
@@ -32,12 +30,9 @@ export default function Comments({
 }: NewComments) {
   return (
     <Container>
-      <Comment>
-        <FatText>{author}</FatText>
-        <CommentCaption>{caption}</CommentCaption>
-      </Comment>
+      <Comment author={author!} payload={caption!} />
 
-      <span>
+      <CommentTotal>
         {commentNumber === 1 ? (
           <span>
             <NumberColor>1</NumberColor> Comment
@@ -45,13 +40,14 @@ export default function Comments({
         ) : (
           `${commentNumber} Comments`
         )}
-      </span>
+      </CommentTotal>
 
       {comments?.map((comment) => (
-        <Comment key={comment?.id}>
-          <FatText>{comment?.user.username}</FatText>
-          <CommentCaption>{comment?.user.username}</CommentCaption>
-        </Comment>
+        <Comment
+          key={comment?.id}
+          author={comment?.user.username!}
+          payload={comment?.payload!}
+        />
       ))}
     </Container>
   );
