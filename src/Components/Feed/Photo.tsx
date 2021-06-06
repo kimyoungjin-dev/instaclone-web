@@ -1,9 +1,15 @@
+import { useMutation } from "@apollo/client";
 import { AiFillHeart, AiOutlineHeart, AiTwotoneMessage } from "react-icons/ai";
 import { BsBookmark, BsThreeDots } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import styled from "styled-components";
 import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
+import {
+  toggleLike,
+  toggleLikeVariables,
+} from "../../__generated__/toggleLike";
 import Avatar from "../Avatar";
+import { TOGGLE_LIKE_MUTATION } from "../Fragment";
 import Likes from "../Likes/Likes";
 import { FatText } from "../SharedStyles";
 
@@ -59,12 +65,25 @@ const ActionColumn = styled.div`
   }
 `;
 
+const ToggleLikeBtn = styled.span`
+  cursor: pointer;
+`;
+
 type PhotoPick = Pick<
   seeFeed_seeFeed,
   "id" | "user" | "likes" | "file" | "isLiked"
 >;
 
 export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
+  const [toggle_like_mutation] = useMutation<toggleLike, toggleLikeVariables>(
+    TOGGLE_LIKE_MUTATION,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
+
   return (
     <PhotoCotainer key={id}>
       <PhotoHeader>
@@ -83,11 +102,13 @@ export default function Photo({ id, user, likes, file, isLiked }: PhotoPick) {
       <PhotoData>
         <PhotoAction>
           <ActionColumn>
-            {isLiked ? (
-              <AiFillHeart style={{ color: "tomato" }} />
-            ) : (
-              <AiOutlineHeart />
-            )}
+            <ToggleLikeBtn onClick={() => toggle_like_mutation()}>
+              {isLiked ? (
+                <AiFillHeart style={{ color: "tomato" }} />
+              ) : (
+                <AiOutlineHeart />
+              )}
+            </ToggleLikeBtn>
             <AiTwotoneMessage />
             <HiOutlinePaperAirplane />
           </ActionColumn>

@@ -37,6 +37,7 @@ export default function Likes({ photoId, likes }: PhotoPick) {
       },
     }
   );
+
   return (
     <div>
       {data?.seePhotoLikes?.map((like, index) => (

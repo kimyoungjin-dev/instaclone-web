@@ -71,3 +71,12 @@ export const SEE_PHOTO_LIKES = gql`
     }
   }
 `;
+
+export const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
