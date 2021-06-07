@@ -92,9 +92,11 @@ export default function Header() {
                 <AiOutlineHeart />
               </Icon>
 
-              <Icon>
-                <Avatar url={data?.me?.avatar || undefined} />
-              </Icon>
+              <Link to={`${routes.Profile}/${data?.me?.username}`}>
+                <Icon>
+                  <Avatar url={data?.me?.avatar || undefined} />
+                </Icon>
+              </Link>
             </IconContainer>
           ) : (
             <Link to={routes.home}>

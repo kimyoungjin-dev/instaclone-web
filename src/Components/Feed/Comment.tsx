@@ -80,7 +80,9 @@ export default function Comment({
 
   return (
     <Container>
-      <FatText>{author}</FatText>
+      <Link to={`${routes.Profile}/${author}`}>
+        <FatText>{author}</FatText>
+      </Link>
       <CommentCaption>
         {payload.split(" ").map((word, index) =>
           /#[\w]+/.test(word) ? (

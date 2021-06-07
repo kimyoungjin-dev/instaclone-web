@@ -1,8 +1,10 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { AiFillHeart, AiOutlineHeart, AiTwotoneMessage } from "react-icons/ai";
 import { BsBookmark, BsThreeDots } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import routes from "../../routes";
 import { seeFeed_seeFeed } from "../../__generated__/seeFeed";
 import {
   toggleLike,
@@ -71,6 +73,13 @@ const ToggleLikeBtn = styled.span`
   cursor: pointer;
 `;
 
+const DeletePhotoBtn = styled.span`
+  cursor: pointer;
+  color: tomato;
+  font-size: 14px;
+  margin-right: 10px;
+`;
+
 type PhotoPick = Pick<
   seeFeed_seeFeed,
   | "id"
@@ -81,6 +90,7 @@ type PhotoPick = Pick<
   | "comments"
   | "commentNumber"
   | "caption"
+  | "isMine"
 >;
 
 export default function Photo({
@@ -129,8 +139,12 @@ export default function Photo({
     <PhotoCotainer key={id}>
       <PhotoHeader>
         <Column>
-          <Avatar url={user.avatar || undefined} />
-          <UserName>{user.username}</UserName>
+          <Link to={`${routes.Profile}/${user.username}`}>
+            <Avatar url={user.avatar || undefined} />
+          </Link>
+          <Link to={`${routes.Profile}/${user.username}`}>
+            <UserName>{user.username}</UserName>
+          </Link>
         </Column>
 
         <Column>

@@ -8,6 +8,7 @@ import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
 import Hashtag from "./Feed/Hashtag";
 import HeaderLayOut from "./Header/HeaderLayOut";
+import Profile from "./Profile";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -30,6 +31,9 @@ export default function AppRouter() {
             <SignUp />
           </Route>
         ) : null}
+        <Route path={`${routes.Profile}/:username`}>
+          <Profile />
+        </Route>
 
         <Route path={routes.Hashtag}>
           <Hashtag />
