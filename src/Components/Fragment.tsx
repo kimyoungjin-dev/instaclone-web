@@ -88,3 +88,16 @@ export const TOGGLE_LIKE_MUTATION = gql`
     }
   }
 `;
+
+export const SEE_HASH_TAGS = gql`
+  query seeHashtag($hashtag: String!, $page: Int!) {
+    seeHashtag(hashtag: $hashtag) {
+      id
+      hashtag
+      totalPhotos
+      photos(page: $page) {
+        file
+      }
+    }
+  }
+`;
