@@ -24,7 +24,13 @@ const httpLink = createHttpLink({
 
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      User: {
+        keyFields: (obj) => `User:${obj.username}`,
+      },
+    },
+  }),
 });
 
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)));
