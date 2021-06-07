@@ -1,4 +1,5 @@
 import {
+  seeFeed_seeFeed,
   seeFeed_seeFeed_comments,
   seeFeed_seeFeed_comments_user,
 } from "../../__generated__/seeFeed";
@@ -7,6 +8,13 @@ import { FatText } from "../SharedStyles";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
 import React from "react";
+import { useMutation } from "@apollo/client";
+import { DELETE_COMMENT } from "../Fragment";
+import { CommentFragment } from "../../__generated__/CommentFragment";
+import {
+  deleteComment,
+  deleteCommentVariables,
+} from "../../__generated__/deleteComment";
 
 const Container = styled.div`
   margin-bottom: 15px;
@@ -20,9 +28,56 @@ const CommentCaption = styled.span`
 interface CommentProps {
   author: seeFeed_seeFeed_comments_user["username"];
   payload: seeFeed_seeFeed_comments["payload"];
+  commentId?: CommentFragment["id"];
+  isMine?: CommentFragment["isMine"];
+  commentNumber?: seeFeed_seeFeed["commentNumber"];
+  photoId?: seeFeed_seeFeed["id"];
 }
 
-export default function Comment({ author, payload }: CommentProps) {
+const DeleteBtn = styled.span`
+  color: skyblue;
+  cursor: pointer;
+  font-size: 12px;
+`;
+
+export default function Comment({
+  author,
+  payload,
+  commentId,
+  isMine,
+  photoId,
+}: CommentProps) {
+  const [deleteComment] = useMutation<deleteComment, deleteCommentVariables>(
+    DELETE_COMMENT,
+    {
+      variables: {
+        id: commentId!,
+      },
+      update: (cache, result) => {
+        if (result.data?.deleteComment) {
+          const {
+            data: {
+              deleteComment: { ok },
+            },
+          } = result;
+          if (ok) {
+            cache.evict({
+              id: `Comment:${commentId}`,
+            });
+            cache.modify({
+              id: `Photo:${photoId}`,
+              fields: {
+                commentNumber(prev) {
+                  return prev - 1;
+                },
+              },
+            });
+          }
+        }
+      },
+    }
+  );
+
   return (
     <Container>
       <FatText>{author}</FatText>
@@ -42,6 +97,9 @@ export default function Comment({ author, payload }: CommentProps) {
           )
         )}
       </CommentCaption>
+      {isMine ? (
+        <DeleteBtn onClick={() => deleteComment()}>삭제</DeleteBtn>
+      ) : null}
     </Container>
   );
 }

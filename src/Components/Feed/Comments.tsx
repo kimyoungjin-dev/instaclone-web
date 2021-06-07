@@ -131,6 +131,9 @@ export default function Comments({
           key={comment?.id}
           author={comment?.user.username!}
           payload={comment?.payload!}
+          commentId={comment?.id!}
+          isMine={comment?.isMine!}
+          photoId={photoId}
         />
       ))}
       <div>
