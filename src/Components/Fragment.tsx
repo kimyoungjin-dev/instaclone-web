@@ -101,3 +101,13 @@ export const SEE_HASH_TAGS = gql`
     }
   }
 `;
+
+export const CREATE_COMMENT_MUTATION = gql`
+  mutation createComment($photoId: Int!, $payload: String!) {
+    createComment(photoId: $photoId, payload: $payload) {
+      ok
+      id
+      error
+    }
+  }
+`;
