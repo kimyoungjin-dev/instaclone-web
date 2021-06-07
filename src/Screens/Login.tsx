@@ -71,6 +71,7 @@ export default function Login() {
   return (
     <Container>
       <PageTitle title="Login" />
+
       <TopBox>
         <Notification message={location?.state?.message} />
 
