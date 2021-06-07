@@ -11,6 +11,7 @@ import HeaderLayOut from "./Header/HeaderLayOut";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
+
   return (
     <Router>
       <Switch>

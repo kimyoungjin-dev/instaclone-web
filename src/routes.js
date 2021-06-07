@@ -1,7 +1,7 @@
 const routes = {
   home: "/",
   signUp: "/sign-up",
-  Hashtag: "/hashtag",
+  Hashtag: "/hashtags",
 };
 
 export default routes;

@@ -31,7 +31,7 @@ export default function Comment({ author, payload }: CommentProps) {
           /#[\w]+/.test(word) ? (
             <React.Fragment key={index}>
               <Link
-                to={`/${routes.Hashtag}/${word}`}
+                to={`${routes.Hashtag}/${word}`}
                 style={{ color: "tomato" }}
               >
                 {word}
