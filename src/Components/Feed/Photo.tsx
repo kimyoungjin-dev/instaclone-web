@@ -107,32 +107,18 @@ export default function Photo({
             },
           } = result;
           if (ok) {
-            const fragmentId = `Photo:${id}`;
-            const fragment = gql`
-              fragment isLikeFragment on Photo {
-                isLiked
-                likes
-              }
-            `;
-
-            //readFragment
-            const result: any = cache.readFragment({
-              id: fragmentId,
-              fragment,
-            });
-
-            //writeFragment
-            if ("isLiked" in result && "likes" in result) {
-              const { isLiked: cacheIsLiked, likes: cacheLikes } = result;
-              cache.writeFragment({
-                id: fragmentId,
-                fragment,
-                data: {
-                  isLiked: !cacheIsLiked,
-                  likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+            const photoId = `Photo:${id}`;
+            cache.modify({
+              id: photoId,
+              fields: {
+                isLiked(prev) {
+                  return !prev;
                 },
-              });
-            }
+                likes(prev) {
+                  return isLiked ? prev - 1 : prev + 1;
+                },
+              },
+            });
           }
         }
       },
@@ -184,6 +170,7 @@ export default function Photo({
           caption={caption}
           commentNumber={commentNumber}
           comments={comments}
+          photoId={id}
         />
       </PhotoData>
     </PhotoCotainer>
