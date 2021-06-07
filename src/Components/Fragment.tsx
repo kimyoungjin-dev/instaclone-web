@@ -146,6 +146,7 @@ export const DELETE_COMMENT = gql`
 export const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
     seeProfile(username: $username) {
+      id
       firstName
       lastName
       username
