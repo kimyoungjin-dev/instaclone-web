@@ -1,5 +1,27 @@
 import gql from "graphql-tag";
 
+export const PHOTO_FRAGMENT = gql`
+  fragment PhotoFragment on Photo {
+    id
+    file
+    likes
+    commentNumber
+    isLiked
+  }
+`;
+
+export const COMMENT_FRAGMENT = gql`
+  fragment CommentFragment on Comment {
+    id
+    user {
+      username
+      avatar
+    }
+    payload
+    isMine
+    createdAt
+  }
+`;
 export const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -44,30 +66,21 @@ export const ME_QUERY = gql`
 export const FEED_QUERY = gql`
   query seeFeed($offset: Int!) {
     seeFeed(offset: $offset) {
-      id
+      ...PhotoFragment
       user {
         username
         avatar
       }
-      file
       caption
-      likes
-      commentNumber
       comments {
-        id
-        user {
-          username
-          avatar
-        }
-        payload
-        isMine
-        createdAt
+        ...CommentFragment
       }
       createdAt
       isMine
-      isLiked
     }
   }
+  ${PHOTO_FRAGMENT}
+  ${COMMENT_FRAGMENT}
 `;
 
 export const SEE_PHOTO_LIKES = gql`
@@ -119,4 +132,33 @@ export const DELETE_COMMENT = gql`
       error
     }
   }
+`;
+
+// export const DELETE_PHOTO = gql`
+//   mutation deletePhoto($id: Int!) {
+//     deletePhoto(id: $id) {
+//       ok
+//       error
+//     }
+//   }
+// `;
+
+export const SEE_PROFILE_QUERY = gql`
+  query seeProfile($username: String!) {
+    seeProfile(username: $username) {
+      firstName
+      lastName
+      username
+      bio
+      avatar
+      photos {
+        ...PhotoFragment
+      }
+      totalFollowing
+      totalFollowers
+      isMe
+      isFollowing
+    }
+  }
+  ${PHOTO_FRAGMENT}
 `;
