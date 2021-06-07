@@ -9,14 +9,20 @@ const Content = styled.div`
   margin: 45px auto 0 auto;
 `;
 
+const Box = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 20px;
+`;
+
 export default function HeaderLayOut({ children }: ChilrenProps) {
   return (
     <>
       <Header />
-
-      <Content>
+      <Box>
         <DarkModeBox />
-      </Content>
+      </Box>
 
       <Content>{children}</Content>
     </>
