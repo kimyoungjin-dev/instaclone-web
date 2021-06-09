@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { ChilrenProps } from "../../interface";
-import DarkModeBox from "./DarkModeBox";
 
 const SContainer = styled.div`
   display: flex;

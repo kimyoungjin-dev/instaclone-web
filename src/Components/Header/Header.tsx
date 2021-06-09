@@ -4,12 +4,7 @@ import { isLoggedInVar } from "../Apollo";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
 import useUser from "../Hooks/useUser";
-import {
-  AiFillHome,
-  AiOutlineCompass,
-  AiOutlineHeart,
-  AiOutlineUser,
-} from "react-icons/ai";
+import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import Avatar from "../Avatar";
 
