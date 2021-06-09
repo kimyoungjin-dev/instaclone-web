@@ -1,5 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { AiFillHeart, AiOutlineHeart, AiTwotoneMessage } from "react-icons/ai";
+import {
+  AiFillHeart,
+  AiFillMessage,
+  AiOutlineHeart,
+  AiOutlineMessage,
+} from "react-icons/ai";
 import { BsBookmark, BsThreeDots } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -154,10 +159,16 @@ export default function Photo({
               {isLiked ? (
                 <AiFillHeart style={{ color: "tomato" }} />
               ) : (
-                <AiOutlineHeart />
+                <AiOutlineHeart style={{ color: "tomato" }} />
               )}
             </ToggleLikeBtn>
-            <AiTwotoneMessage />
+
+            {commentNumber === 0 ? (
+              <AiOutlineMessage style={{ color: "skyblue" }} />
+            ) : (
+              <AiFillMessage style={{ color: "skyblue" }} />
+            )}
+
             <HiOutlinePaperAirplane />
           </ActionColumn>
 
