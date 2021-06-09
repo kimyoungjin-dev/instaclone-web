@@ -73,13 +73,6 @@ const ToggleLikeBtn = styled.span`
   cursor: pointer;
 `;
 
-const DeletePhotoBtn = styled.span`
-  cursor: pointer;
-  color: tomato;
-  font-size: 14px;
-  margin-right: 10px;
-`;
-
 type PhotoPick = Pick<
   seeFeed_seeFeed,
   | "id"
