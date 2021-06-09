@@ -1,7 +1,7 @@
 const routes = {
   home: "/",
   signUp: "/sign-up",
-  Hashtag: "/hashtags",
+  Hashtag: "/hashtag",
   Profile: "/users",
 };
 
