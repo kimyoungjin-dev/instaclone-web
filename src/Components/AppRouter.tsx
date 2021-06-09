@@ -30,10 +30,13 @@ export default function AppRouter() {
           <Route path={routes.signUp}>
             <SignUp />
           </Route>
-        ) : null}
-        <Route path={`${routes.Profile}/:username`}>
-          <Profile />
-        </Route>
+        ) : (
+          <Route path={`${routes.Profile}/:username`}>
+            <HeaderLayOut>
+              <Profile />
+            </HeaderLayOut>
+          </Route>
+        )}
 
         <Route path={routes.Hashtag}>
           <Hashtag />
