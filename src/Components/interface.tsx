@@ -22,3 +22,7 @@ export interface SignUpProps extends createAccountVariables {
 export interface ImageProps {
   url: string | undefined;
 }
+
+export interface bgProps {
+  bg?: string;
+}
