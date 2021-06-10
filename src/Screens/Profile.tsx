@@ -1,7 +1,11 @@
-import { useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { SEE_PROFILE_QUERY } from "../Components/Fragment";
-import { seeProfile, seeProfileVariables } from "../__generated__/seeProfile";
+import {
+  seeProfile,
+  seeProfileVariables,
+  seeProfile_seeProfile,
+} from "../__generated__/seeProfile";
 import styled from "styled-components";
 import {
   AiFillHeart,
@@ -11,6 +15,14 @@ import {
 } from "react-icons/ai";
 import { bgProps } from "../Components/interface";
 import { NumberColor } from "../Components/SharedStyles";
+import PageTitle from "../Components/PageTitle";
+import {
+  unfollowUser,
+  unfollowUserVariables,
+} from "../__generated__/unfollowUser";
+import { followUser, followUserVariables } from "../__generated__/followUser";
+import useUser from "../Components/Hooks/useUser";
+import { logUserOut } from "../Components/Apollo";
 
 const Container = styled.div`
   display: flex;
@@ -81,22 +93,49 @@ const Icon = styled.span`
   }
 `;
 
-const FollowingBtn = styled.span`
-  padding: 1px 4px;
-  background-color: tomato;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-`;
-
 const ColorText = styled(NumberColor)`
   margin-right: 8px;
 `;
 
+const UserName_Btn = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Button = styled.span`
+  cursor: pointer;
+  padding: 5px;
+  background-color: tomato;
+  border-radius: 3px;
+  margin-left: 15px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+`;
+
+//mutation
+const FOLLOW_USER_MUTATION = gql`
+  mutation followUser($username: String!) {
+    followUser(username: $username) {
+      ok
+      error
+    }
+  }
+`;
+
+const UNFOLLOW_USER_MUTATION = gql`
+  mutation unfollowUser($username: String!) {
+    unfollowUser(username: $username) {
+      ok
+      error
+    }
+  }
+`;
+
 export default function Profile() {
   const { username } = useParams<seeProfileVariables>();
-
+  const { data: userData } = useUser();
   const { data } = useQuery<seeProfile, seeProfileVariables>(
     SEE_PROFILE_QUERY,
     {
@@ -105,28 +144,131 @@ export default function Profile() {
       },
     }
   );
+  console.log(userData);
+  const [unfollowMutation] = useMutation<unfollowUser, unfollowUserVariables>(
+    UNFOLLOW_USER_MUTATION,
+    {
+      variables: {
+        username,
+      },
+
+      update: (cache, result) => {
+        if (result.data?.unfollowUser) {
+          const {
+            data: {
+              unfollowUser: { ok, error },
+            },
+          } = result;
+          if (!ok) {
+            return;
+          }
+          cache.modify({
+            id: `User:${username}`,
+            fields: {
+              isFollowing() {
+                return false;
+              },
+              totalFollowers(prev) {
+                return prev - 1;
+              },
+            },
+          });
+          if (userData?.me) {
+            const {
+              me: { username },
+            } = userData;
+            cache.modify({
+              id: `User:${username}`,
+              fields: {
+                totalFollowing(prev) {
+                  return prev - 1;
+                },
+              },
+            });
+          }
+        }
+      },
+    }
+  );
+
+  const [followMutation] = useMutation<followUser, followUserVariables>(
+    FOLLOW_USER_MUTATION,
+    {
+      variables: {
+        username,
+      },
+      update: (cache, result) => {
+        if (result.data?.followUser) {
+          const {
+            data: {
+              followUser: { ok },
+            },
+          } = result;
+          if (!ok) {
+            return;
+          }
+          cache.modify({
+            id: `User:${username}`,
+            fields: {
+              isFollowing() {
+                return true;
+              },
+              totalFollowers(prev) {
+                return prev + 1;
+              },
+            },
+          });
+          if (userData?.me) {
+            const {
+              me: { username },
+            } = userData;
+            cache.modify({
+              id: `User:${username}`,
+              fields: {
+                totalFollowing(prev) {
+                  return prev + 1;
+                },
+              },
+            });
+          }
+        }
+      },
+    }
+  );
+
+  const getButton = (seeProfile: seeProfile_seeProfile) => {
+    const { isMe, isFollowing } = seeProfile;
+    if (isMe) {
+      return (
+        <>
+          <Button>EditProfile</Button>
+          <Button
+            style={{ backgroundColor: "blue" }}
+            onClick={() => logUserOut()}
+          >
+            Log Out
+          </Button>
+        </>
+      );
+    }
+    if (isFollowing) {
+      return <Button onClick={() => unfollowMutation()}>unFollowing</Button>;
+    } else {
+      return <Button onClick={() => followMutation()}>Following</Button>;
+    }
+  };
 
   return (
     <Container>
+      <PageTitle title={`${data?.seeProfile?.username}님의 프로필`} />
       <Top>
         <Image src={data?.seeProfile?.avatar || undefined} />
 
         <User>
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <span style={{ fontWeight: "bold", fontSize: 30 }}>
-              {data?.seeProfile?.username}
-            </span>
-
-            <FollowingBtn>
-              {data?.seeProfile?.isFollowing ? "UnFollwing" : "Follwing"}
-            </FollowingBtn>
-          </div>
+          <UserName_Btn>
+            <span>{data?.seeProfile?.username}</span>
+            {data?.seeProfile && getButton(data.seeProfile)}
+          </UserName_Btn>
 
           <div>
             <span style={{ marginRight: 20 }}>
