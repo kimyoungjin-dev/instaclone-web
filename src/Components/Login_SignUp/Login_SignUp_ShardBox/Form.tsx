@@ -1,10 +1,8 @@
 import styled from "styled-components";
+import { defaultFlexBox } from "../../SharedStyles";
 
-export const Form = styled.form`
+export const Form = styled(defaultFlexBox)`
   margin-top: 15px;
   width: 100%;
-  display: flex;
-  justify-items: center;
   flex-direction: column;
-  align-items: center;
 `;

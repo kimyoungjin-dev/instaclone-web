@@ -1,16 +1,14 @@
 import styled from "styled-components";
+import { defaultFlexBox } from "../../SharedStyles";
 
 interface IProps {
   smallMargin: boolean;
 }
 
-const SSeparator = styled.div<IProps>`
+const SSeparator = styled(defaultFlexBox)<IProps>`
   margin: 20px 0px ${(props) => (props.smallMargin ? "0" : "30px")} 0px;
   text-transform: uppercase;
-  display: flex;
-  justify-content: center;
   width: 100%;
-  align-items: center;
   div {
     width: 100%;
     height: 1px;

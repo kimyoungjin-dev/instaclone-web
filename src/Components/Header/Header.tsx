@@ -7,22 +7,18 @@ import useUser from "../Hooks/useUser";
 import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import Avatar from "../Avatar";
+import { defaultFlexBox } from "../SharedStyles";
 
-const Container = styled.div`
+const Container = styled(defaultFlexBox)`
   border-bottom: 0.5px solid ${(props) => props.theme.silverColor};
   height: 52px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(defaultFlexBox)`
   max-width: 930px;
   width: 100%;
-  display: flex;
   height: 100%;
   justify-content: space-between;
-  align-items: center;
 `;
 
 const Column = styled.div`

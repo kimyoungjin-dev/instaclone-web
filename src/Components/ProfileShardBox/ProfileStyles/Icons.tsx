@@ -1,10 +1,8 @@
 import styled from "styled-components";
+import { defaultFlexBox } from "../../SharedStyles";
 
-export const Icons = styled.div`
+export const Icons = styled(defaultFlexBox)`
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
   opacity: 0;

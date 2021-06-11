@@ -4,18 +4,13 @@ import { FEED_QUERY } from "../Components/Fragment";
 import { seeFeed } from "../__generated__/seeFeed";
 import Photo from "../Components/Comment_Photo/Photo";
 import React, { useState } from "react";
+import { defaultFlexBox } from "../Components/SharedStyles";
 
-const Box = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Box = styled(defaultFlexBox)`
   flex-direction: column;
 `;
 
-const PageNation = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const PageNation = styled(defaultFlexBox)`
   flex-direction: column;
 `;
 

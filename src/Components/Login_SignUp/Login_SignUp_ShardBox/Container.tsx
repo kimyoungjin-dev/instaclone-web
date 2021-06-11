@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { ChilrenProps } from "../../InterFace/PropsInterFace";
+import { defaultFlexBox } from "../../SharedStyles";
 
-const SContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const SContainer = styled(defaultFlexBox)`
   flex-direction: column;
   height: 100vh;
 `;

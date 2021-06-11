@@ -18,7 +18,7 @@ import {
 import Avatar from "../Avatar";
 import { TOGGLE_LIKE_MUTATION } from "../Fragment";
 import Likes from "../Likes/Likes";
-import { FatText } from "../SharedStyles";
+import { defaultFlexBox, FatText } from "../SharedStyles";
 import Comments from "./Comments";
 
 const PhotoCotainer = styled.div`
@@ -28,10 +28,8 @@ const PhotoCotainer = styled.div`
   margin-bottom: 25px;
 `;
 
-const PhotoHeader = styled.div`
-  display: flex;
+const PhotoHeader = styled(defaultFlexBox)`
   justify-content: space-between;
-  align-items: center;
   padding: 10px 20px;
 `;
 
