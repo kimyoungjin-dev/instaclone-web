@@ -1,5 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { BiDownArrow, BiUpArrow } from "react-icons/bi";
 import styled from "styled-components";
 import {
   createComment,
@@ -18,7 +20,7 @@ const Container = styled.div`
   margin-top: 10px;
 `;
 
-const CommentTotal = styled.span`
+const CommentTotal = styled.div`
   display: block;
   margin-bottom: 10px;
 `;
@@ -38,6 +40,9 @@ export default function Comments({
   comments,
   photoId,
 }: CommentsProps) {
+  const [showComment, setShowComment] = useState(false);
+  const toggleComment = () => setShowComment((prev) => !prev);
+
   const { data: userData } = useUser();
   const { register, handleSubmit, setValue, getValues } = useForm();
 
@@ -116,26 +121,37 @@ export default function Comments({
     <Container>
       <Comment author={author!} payload={caption!} />
 
-      <CommentTotal>
-        {commentNumber === 1 ? (
-          <span>
-            <NumberColor>1</NumberColor> Comment
-          </span>
+      <div style={{ marginBottom: 10 }}>
+        {showComment ? (
+          <CommentTotal onClick={toggleComment} style={{ cursor: "pointer" }}>
+            {commentNumber === 1 ? (
+              <span>
+                <NumberColor>1</NumberColor> Comment
+              </span>
+            ) : (
+              `${commentNumber} Comments`
+            )}
+            <BiUpArrow size={12} style={{ marginLeft: 5 }} />
+          </CommentTotal>
         ) : (
-          `${commentNumber} Comments`
+          <div onClick={toggleComment} style={{ cursor: "pointer" }}>
+            <span style={{ marginRight: 5 }}>Comment</span>
+            <BiDownArrow size={12} />
+          </div>
         )}
-      </CommentTotal>
+      </div>
 
-      {comments?.map((comment) => (
-        <Comment
-          key={comment?.id}
-          author={comment?.user.username!}
-          payload={comment?.payload!}
-          commentId={comment?.id!}
-          isMine={comment?.isMine!}
-          photoId={photoId}
-        />
-      ))}
+      {showComment &&
+        comments?.map((comment) => (
+          <Comment
+            key={comment?.id}
+            author={comment?.user.username!}
+            payload={comment?.payload!}
+            commentId={comment?.id!}
+            isMine={comment?.isMine!}
+            photoId={photoId}
+          />
+        ))}
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
