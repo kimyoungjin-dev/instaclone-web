@@ -185,7 +185,9 @@ export default function UserInfo() {
 
       <User>
         <UserName_Btn>
-          <span>{data?.seeProfile?.username}</span>
+          <span style={{ fontWeight: "bold", fontSize: 24 }}>
+            {data?.seeProfile?.username}
+          </span>
           {data?.seeProfile && getButton(data.seeProfile)}
         </UserName_Btn>
 
@@ -202,7 +204,8 @@ export default function UserInfo() {
         </div>
 
         <span style={{ fontSize: 20, fontWeight: "bold" }}>
-          `${data?.seeProfile?.username}` Should work!
+          {data?.seeProfile?.username}님의 소개글 :{" "}
+          <span style={{ fontSize: 14 }}>안녕하세요!!</span>
         </span>
 
         <span style={{ color: "silver" }}>
