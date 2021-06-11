@@ -103,13 +103,16 @@ export const TOGGLE_LIKE_MUTATION = gql`
 `;
 
 export const SEE_HASH_TAGS = gql`
-  query seeHashtag($hashtag: String!, $page: Int!) {
+  query seeHashtag($hashtag: String!) {
     seeHashtag(hashtag: $hashtag) {
       id
       hashtag
       totalPhotos
-      photos(page: $page) {
+      photos {
+        id
         file
+        likes
+        commentNumber
       }
     }
   }
@@ -162,4 +165,22 @@ export const SEE_PROFILE_QUERY = gql`
     }
   }
   ${PHOTO_FRAGMENT}
+`;
+
+export const FOLLOW_USER_MUTATION = gql`
+  mutation followUser($username: String!) {
+    followUser(username: $username) {
+      ok
+      error
+    }
+  }
+`;
+
+export const UNFOLLOW_USER_MUTATION = gql`
+  mutation unfollowUser($username: String!) {
+    unfollowUser(username: $username) {
+      ok
+      error
+    }
+  }
 `;

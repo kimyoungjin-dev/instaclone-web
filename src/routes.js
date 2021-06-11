@@ -1,8 +1,9 @@
 const routes = {
   home: "/",
   signUp: "/sign-up",
-  Hashtag: "/hashtag",
+  Hashtags: "/hashtags",
   Profile: "/users",
+  NotFound: "/notfound",
 };
 
 export default routes;

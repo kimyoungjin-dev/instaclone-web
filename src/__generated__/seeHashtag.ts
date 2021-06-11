@@ -9,7 +9,10 @@
 
 export interface seeHashtag_seeHashtag_photos {
   __typename: "Photo";
+  id: number;
   file: string;
+  likes: number;
+  commentNumber: number;
 }
 
 export interface seeHashtag_seeHashtag {
@@ -26,5 +29,4 @@ export interface seeHashtag {
 
 export interface seeHashtagVariables {
   hashtag: string;
-  page: number;
 }

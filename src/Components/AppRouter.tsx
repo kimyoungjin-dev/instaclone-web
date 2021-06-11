@@ -8,7 +8,7 @@ import SignUp from "../Screens/SignUp";
 import { isLoggedInVar } from "./Apollo";
 import HeaderLayOut from "./Header/HeaderLayOut";
 import Profile from "../Screens/Profile";
-import Hashtag from "../Screens/Hashtag";
+import Hashtags from "../Screens/Hashtags";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -38,11 +38,13 @@ export default function AppRouter() {
           </HeaderLayOut>
         </Route>
 
-        <Route path={`${routes.Hashtag}/:word`}>
-          <Hashtag />
+        <Route path={`${routes.Hashtags}/:hashtag`}>
+          <HeaderLayOut>
+            <Hashtags />
+          </HeaderLayOut>
         </Route>
 
-        <Route>
+        <Route path={routes.NotFound} component={NotFound}>
           <NotFound />
         </Route>
       </Switch>
