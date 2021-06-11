@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ImageProps } from "./interface";
+import { ImageProps } from "./InterFace/PropsInterFace";
 
 const Image = styled.img`
   width: 30px;

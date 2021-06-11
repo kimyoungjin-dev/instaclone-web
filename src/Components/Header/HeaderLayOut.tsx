@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "./Header";
-import { ChilrenProps } from "../interface";
-import DarkModeBox from "../Auth/Box/DarkModeBox";
+import DarkModeBox from "../DarkModeBox";
+import { ChilrenProps } from "../InterFace/PropsInterFace";
 
 const Content = styled.div`
   max-width: 930px;
