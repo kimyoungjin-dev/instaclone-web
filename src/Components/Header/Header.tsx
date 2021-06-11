@@ -80,7 +80,9 @@ export default function Header() {
               </Icon>
 
               <Icon>
-                <AiOutlineHeart />
+                <Link to={routes.MeLike}>
+                  <AiOutlineHeart />
+                </Link>
               </Icon>
 
               <Link to={`${routes.Profile}/${data?.me?.username}`}>
