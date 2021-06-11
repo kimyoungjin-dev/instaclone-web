@@ -18,3 +18,9 @@ export const FatText = styled.span`
 export const NumberColor = styled.span`
   color: tomato;
 `;
+
+export const defaultFlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
