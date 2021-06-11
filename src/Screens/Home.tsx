@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { FEED_QUERY } from "../Components/Fragment";
 import { seeFeed } from "../__generated__/seeFeed";
-import Photo from "../Components/Feed/Photo";
+import Photo from "../Components/Comment_Photo/Photo";
 import React, { useState } from "react";
 
 const Box = styled.div`
