@@ -68,7 +68,7 @@ export default function Home() {
 
         <div style={{ paddingBottom: 30 }}>
           <PageText onClick={prevPage} style={{ marginRight: 20 }}>
-            이전 페이지로
+            {offset === 1 ? null : "이전 페이지로"}
           </PageText>
 
           <PageText onClick={nextPage}>
