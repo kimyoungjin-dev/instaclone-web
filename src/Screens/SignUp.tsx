@@ -1,17 +1,12 @@
-import {
-  AgreeText,
-  HeaderContainer,
-  Subtitle,
-} from "../Components/Auth/SignUp/SignUpStyles";
-import Container from "../Components/Auth/Box/Container";
-import BottomBox from "../Components/Auth/Box/BottomBox";
-import TopBox from "../Components/Auth/Box/TopBox";
-import Input from "../Components/Auth/Box/Input";
-import SubmitButton from "../Components/Auth/Box/SubmitButton";
+import Container from "../Components/Login_SignUp/Login_SignUp_ShardBox/Container";
+import BottomBox from "../Components/Login_SignUp/Login_SignUp_ShardBox/BottomBox";
+import TopBox from "../Components/Login_SignUp/Login_SignUp_ShardBox/TopBox";
+import Input from "../Components/Login_SignUp/Login_SignUp_ShardBox/Input";
+import SubmitButton from "../Components/Login_SignUp/Login_SignUp_ShardBox/SubmitButton";
 import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
-import { Form } from "../Components/Auth/Box/Form";
-import Separator from "../Components/Auth/Separator";
+import { Form } from "../Components/Login_SignUp/Login_SignUp_ShardBox/Form";
+import Separator from "../Components/Login_SignUp/Login_SignUp_ShardBox/Separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -20,10 +15,32 @@ import {
   createAccount,
   createAccountVariables,
 } from "../__generated__/createAccount";
-import ErrorMessage from "../Components/Auth/ErrorMessage";
+import ErrorMessage from "../Components/Login_SignUp/Login_SignUp_ShardBox/ErrorMessage";
 import { useHistory } from "react-router-dom";
 import { CREATE_ACCOUNT_MUTATION } from "../Components/Fragment";
-import { SignUpProps } from "../Components/interface";
+import { SignUpProps } from "../Components/InterFace/ExtendsInterFace";
+
+import styled from "styled-components";
+import { SilverText } from "../Components/SharedStyles";
+
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
+
+const Subtitle = styled(SilverText)`
+  text-align: center;
+  font-size: 14px;
+`;
+
+const AgreeText = styled.span`
+  color: ${(props) => props.theme.silverColor};
+  font-size: 12px;
+  margin-top: 20px;
+  text-align: center;
+`;
 
 export default function SignUp() {
   const {

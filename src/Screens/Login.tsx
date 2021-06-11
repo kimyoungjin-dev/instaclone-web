@@ -1,24 +1,27 @@
 import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Container from "../Components/Auth/Box/Container";
-import BottomBox from "../Components/Auth/Box/BottomBox";
-import TopBox from "../Components/Auth/Box/TopBox";
-import Input from "../Components/Auth/Box/Input";
-import Separator from "../Components/Auth/Separator";
-import SubmitButton from "../Components/Auth/Box/SubmitButton";
+import Container from "../Components/Login_SignUp/Login_SignUp_ShardBox/Container";
+import BottomBox from "../Components/Login_SignUp/Login_SignUp_ShardBox/BottomBox";
+import TopBox from "../Components/Login_SignUp/Login_SignUp_ShardBox/TopBox";
+import Input from "../Components/Login_SignUp/Login_SignUp_ShardBox/Input";
+import Separator from "../Components/Login_SignUp/Login_SignUp_ShardBox/Separator";
+import SubmitButton from "../Components/Login_SignUp/Login_SignUp_ShardBox/SubmitButton";
 import routes from "../routes";
 import PageTitle from "../Components/PageTitle";
 import { SubmitHandler, useForm } from "react-hook-form";
-import ErrorMessage from "../Components/Auth/ErrorMessage";
-import { FacebookLogin, ForgotPassword } from "../Components/Auth/Remainder";
+import ErrorMessage from "../Components/Login_SignUp/Login_SignUp_ShardBox/ErrorMessage";
+import {
+  FacebookLogin,
+  ForgotPassword,
+} from "../Components/Login_SignUp/Login_SignUp_Styles/Remainder";
 import { useMutation } from "@apollo/client";
 import { login, loginVariables } from "../__generated__/login";
 import { logUserIn } from "../Components/Apollo";
 import { useLocation } from "react-router-dom";
 import Notification from "../Components/Notification";
 import { LOGIN_MUTATION } from "../Components/Fragment";
-import { LoginInterFace } from "../Components/interface";
-import { Form } from "../Components/Auth/Box/Form";
+import { Form } from "../Components/Login_SignUp/Login_SignUp_ShardBox/Form";
+import { LoginInterFace } from "../Components/InterFace/ExtendsInterFace";
 
 export default function Login() {
   const location = useLocation<LoginInterFace>();
