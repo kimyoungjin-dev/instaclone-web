@@ -4,6 +4,7 @@ const routes = {
   Hashtags: "/hashtags",
   Profile: "/users",
   NotFound: "/notfound",
+  MeLike: "/melike",
 };
 
 export default routes;

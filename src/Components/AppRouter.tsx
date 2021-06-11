@@ -9,6 +9,7 @@ import { isLoggedInVar } from "./Apollo";
 import HeaderLayOut from "./Header/HeaderLayOut";
 import Profile from "../Screens/Profile";
 import Hashtags from "../Screens/Hashtags";
+import MeLike from "../Screens/MeLike";
 
 export default function AppRouter() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -41,6 +42,12 @@ export default function AppRouter() {
         <Route path={`${routes.Hashtags}/:hashtag`}>
           <HeaderLayOut>
             <Hashtags />
+          </HeaderLayOut>
+        </Route>
+
+        <Route path={`${routes.MeLike}`}>
+          <HeaderLayOut>
+            <MeLike />
           </HeaderLayOut>
         </Route>
 
