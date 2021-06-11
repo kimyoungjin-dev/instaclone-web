@@ -162,6 +162,17 @@ export const SEE_PROFILE_QUERY = gql`
       totalFollowers
       isMe
       isFollowing
+      totalLikes
+      likes {
+        id
+        photo {
+          id
+          file
+          caption
+          commentNumber
+          likes
+        }
+      }
     }
   }
   ${PHOTO_FRAGMENT}
