@@ -17,7 +17,13 @@ import {
 } from "../../__generated__/deleteComment";
 
 const Container = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  :first-child {
+    margin-bottom: 20px;
+  }
+  :not(:first-child) {
+    margin-bottom: 8px;
+  }
 `;
 
 const CommentCaption = styled.span`
