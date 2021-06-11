@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MessageProps } from "./interface";
+import { MessageProps } from "./InterFace/PropsInterFace";
 
 const Text = styled.span`
   color: blue;
