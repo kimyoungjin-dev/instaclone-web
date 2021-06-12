@@ -15,34 +15,23 @@ import {
   AiOutlineHeart,
   AiOutlineMessage,
 } from "react-icons/ai";
+import { Image } from "../Components/ProfileShardBox/ProfileStyles/Image";
+import PageTitle from "../Components/PageTitle";
+import User from "../Components/ProfileShardBox/User";
+import ProfilePhotoTitle from "../Components/ProfileShardBox/ProfilePhotoTitle";
 
 const Container = styled.div`
   padding-bottom: 30px;
 `;
 
-const Image = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  margin-right: 50px;
-`;
-
-const UserName = styled.span`
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 10px;
-`;
-
-const UserDataBox = styled.div`
+const UserName_Btn = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `;
 
-const TotalLikes = styled.span`
+const ColorText = styled(NumberColor)`
   margin-right: 8px;
 `;
-
-//BottomBox
 
 const Photo = styled.div<bgProps>`
   background-image: url(${(props) => props.bg});
@@ -53,8 +42,6 @@ const Photo = styled.div<bgProps>`
     filter: brightness(0.6);
   }
 `;
-
-const BottomBox = styled.div``;
 
 export default function MeLike() {
   const { data: userData } = useUser();
@@ -69,42 +56,67 @@ export default function MeLike() {
 
   return (
     <Container>
+      <PageTitle title={`${data?.seeProfile?.username}님이 누른 좋아요`} />
       <TopBox>
         <Image src={data?.seeProfile?.avatar || undefined} />
-        <UserDataBox>
-          <UserName>{data?.seeProfile?.username}</UserName>
+        <User>
+          <UserName_Btn>
+            <span style={{ fontWeight: "bold", fontSize: 24 }}>
+              {data?.seeProfile?.username}
+            </span>
+            <span>getButton</span>
+          </UserName_Btn>
+
           <div>
-            <TotalLikes>내가 좋아요를 누른 사진의 수</TotalLikes>
-            <NumberColor>{data?.seeProfile?.totalLikes}</NumberColor>
+            <span style={{ marginRight: 20 }}>
+              <ColorText>{data?.seeProfile?.totalFollowers}</ColorText>
+              Followers
+            </span>
+
+            <span>
+              <ColorText>{data?.seeProfile?.totalFollowing}</ColorText>
+              Following
+            </span>
           </div>
-        </UserDataBox>
+
+          <span style={{ fontSize: 17 }}>
+            {data?.seeProfile?.username}님의 소개글 :{" "}
+            <span style={{ fontSize: 13 }}>안녕하세요!!</span>
+          </span>
+
+          <span style={{ color: "silver" }}>
+            Good morning. Welcome to {data?.seeProfile?.username}'s Instagram
+            profile. Have a good day!
+          </span>
+        </User>
       </TopBox>
-      <BottomBox>
-        <Grid>
-          {data?.seeProfile?.likes?.map((item) => (
-            <Photo bg={item?.photo.file}>
-              <Icons>
-                <Icon>
-                  <NumberColor>{item?.photo?.likes}</NumberColor>
-                  {item?.photo?.likes === 0 ? (
-                    <AiOutlineHeart />
-                  ) : (
-                    <AiFillHeart />
-                  )}
-                </Icon>
-                <Icon>
-                  <NumberColor>{item?.photo?.commentNumber}</NumberColor>
-                  {item?.photo?.commentNumber === 0 ? (
-                    <AiOutlineMessage />
-                  ) : (
-                    <AiFillMessage />
-                  )}
-                </Icon>
-              </Icons>
-            </Photo>
-          ))}
-        </Grid>
-      </BottomBox>
+
+      <ProfilePhotoTitle title="My Photos" />
+
+      <Grid>
+        {data?.seeProfile?.likes?.map((item) => (
+          <Photo bg={item?.photo.file}>
+            <Icons>
+              <Icon>
+                <NumberColor>{item?.photo?.likes}</NumberColor>
+                {item?.photo?.likes === 0 ? (
+                  <AiOutlineHeart />
+                ) : (
+                  <AiFillHeart />
+                )}
+              </Icon>
+              <Icon>
+                <NumberColor>{item?.photo?.commentNumber}</NumberColor>
+                {item?.photo?.commentNumber === 0 ? (
+                  <AiOutlineMessage />
+                ) : (
+                  <AiFillMessage />
+                )}
+              </Icon>
+            </Icons>
+          </Photo>
+        ))}
+      </Grid>
     </Container>
   );
 }
